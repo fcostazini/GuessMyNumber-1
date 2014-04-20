@@ -1,7 +1,6 @@
 package ar.com.gmn.android.view.component;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.widget.TableRow;
@@ -9,37 +8,43 @@ import android.widget.TextView;
 import ar.com.gmn.android.core.Numero;
 import ar.com.gmn.android.core.Respuesta;
 
-public class TRRespuesta extends TableRow {
+public class TRRespuestaHead extends TableRow {
 	private TextView turno;
-	private NumeroView numero;
+	private TextView numero;
 	private TextView bien;
 	private TextView regular;
 
-	public TRRespuesta(Context context, Respuesta r) {
+	public TRRespuestaHead(Context context) {
 		super(context);
 
 		turno = new TextView(context);
-		numero = new NumeroView(context,r.getNumero());
+		turno.setText("T");
+		numero = new TextView(context);
+		numero.setText("Numero");
 		bien = new TextView(context);
-		bien.setText(r.getCorrectos().toString());
+		bien.setText("B");
 		regular = new TextView(context);
-		regular.setText(r.getRegulares().toString());
+		regular.setText("R");
 		
 		Typeface type = Typeface.createFromAsset(context.getAssets(),"fonts/EraserDust.ttf");
 		turno.setTypeface(type);
-		turno.setTextSize(30);
+		turno.setWidth(70);
+		turno.setTextSize(20);
 		turno.setTextColor(Color.WHITE);
 		
 		bien.setTypeface(type);
-		bien.setTextSize(30);
+		bien.setTextSize(20);
+		bien.setWidth(40);
 		bien.setTextColor(Color.WHITE);
 		
 		regular.setTypeface(type);
-		regular.setTextSize(30);
+		regular.setTextSize(20);
+		regular.setWidth(40);
 		regular.setTextColor(Color.WHITE);
 		
 		numero.setTypeface(type);
-		numero.setTextSize(30);
+		numero.setTextSize(20);
+		numero.setWidth(200);
 		numero.setTextColor(Color.WHITE);
 		
 		this.addView(turno);
@@ -47,22 +52,24 @@ public class TRRespuesta extends TableRow {
 		this.addView(bien);
 		this.addView(regular);
 		
+		
 	}
 
-	public void setBien(Integer i) {
+	public void setBien(String i) {
 		this.bien.setText(i.toString());
 	}
 	
-	public void setRegular(Integer i) {
+	public void setRegular(String i) {
 		this.regular.setText(i.toString());
 	}
 	
-	public void setNumero(Numero n) {
-		this.numero = new NumeroView(this.getContext(), n);
+	public void setNumero(String n) {
+		this.regular.setText(n);
 	}
 	
-	public void setTurno(Integer i) {
+	public void setTurno(String i) {
 		this.turno.setText(i.toString());
 	}
+
 
 }

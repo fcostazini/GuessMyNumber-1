@@ -1,100 +1,126 @@
 package ar.com.gmn.android;
 
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
+import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.NumberPicker;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
-import android.os.Build;
 import ar.com.gmn.android.core.Evaluador;
 import ar.com.gmn.android.core.Numero;
 import ar.com.gmn.android.core.Respuesta;
+import ar.com.gmn.android.view.component.CustomNumberPicker;
 import ar.com.gmn.android.view.component.TRRespuesta;
+import ar.com.gmn.android.view.component.TRRespuestaHead;
 
 public class MainActivity extends ActionBarActivity {
 	private Evaluador e;
+	private CustomNumberPicker digit1;
+	private CustomNumberPicker digit2;
+	private CustomNumberPicker digit3;
+	private CustomNumberPicker digit4;
+	private Button probar;
+	private Integer turno = 0;
+	private Numero codigo;
+	private TableLayout tResultados; 
 
-	private Integer turno =0;
 	protected void addRespuesta(Respuesta r) {
-		TableLayout tResultados = (TableLayout)findViewById(R.id.results);
-		TRRespuesta trRespuesta= new TRRespuesta(this, r);
+		TableLayout tResultados = (TableLayout) findViewById(R.id.results);
+		TRRespuesta trRespuesta = new TRRespuesta(this, r);
 		trRespuesta.setTurno(turno);
 		tResultados.addView(trRespuesta);
-		
+
 	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		   //Remove title bar
+	 
 		setContentView(R.layout.activity_main);
-		e = new Evaluador(new Numero("1572"));
+		
+		codigo = Numero.getRandom(4);
+		e = new Evaluador(codigo);
 
-		NumberPicker digit1 = (NumberPicker)findViewById(R.id.numberPicker1);
-		digit1.setMinValue(0);
-		digit1.setMaxValue(9);
-		digit1.setWrapSelectorWheel(true);
+		digit1 = new CustomNumberPicker(this);
+		digit2 = new CustomNumberPicker(this);
+		digit3 = new CustomNumberPicker(this);
+		digit4 = new CustomNumberPicker(this);
 		
+		LinearLayout numeroLayout = (LinearLayout)findViewById(R.id.numeroLayout);
+		numeroLayout.addView(digit1);
+		numeroLayout.addView(digit2);
+		numeroLayout.addView(digit3);
+		numeroLayout.addView(digit4);
+		probar = new Button(this);
+		probar.setBackgroundResource(R.drawable.lock_key);
+		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(120,120);
+		probar.getBackground().setColorFilter(0x80000000,PorterDuff.Mode.SRC_ATOP);
 		
-		
-    	NumberPicker digit2 = (NumberPicker)findViewById(R.id.numberPicker2);
-    	digit2.setMinValue(0);
-		digit2.setMaxValue(9);
-		digit2.setWrapSelectorWheel(true);
-		
-    	NumberPicker digit3 = (NumberPicker)findViewById(R.id.numberPicker3);
-    	digit3.setMinValue(0);
-		digit3.setMaxValue(9);
-		digit3.setWrapSelectorWheel(true);
-		
-		
-    	NumberPicker digit4 = (NumberPicker)findViewById(R.id.numberPicker4);
-    	digit4.setMinValue(0);
-		digit4.setMaxValue(9);
-		digit4.setWrapSelectorWheel(true);
-		
-//		
-//		
-		final Button button = (Button) findViewById(R.id.probar);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-            	turno++;
-            	NumberPicker digit1 = (NumberPicker)findViewById(R.id.numberPicker1);
-            	NumberPicker digit2 = (NumberPicker)findViewById(R.id.numberPicker2);
-            	NumberPicker digit3 = (NumberPicker)findViewById(R.id.numberPicker3);
-            	NumberPicker digit4 = (NumberPicker)findViewById(R.id.numberPicker4);
-            	Numero n = new Numero();
-            	n.set(1,digit1.getValue());
-            	n.set(2,digit2.getValue());
-            	n.set(3,digit3.getValue());
-            	n.set(4,digit4.getValue());
-//            	
-            	Respuesta r = e.evaluar(n);
-            	addRespuesta(r);
-            	if(r.resuelto()){
-            		findViewById(R.id.winner).setVisibility(View.VISIBLE);
-            		findViewById(R.id.probar).setVisibility(View.GONE );
-            		findViewById(R.id.probar).setEnabled(false);
-            	}
-            	
-            }
+		probar.setLayoutParams(params);
+		numeroLayout.addView(probar);
 
+		createTablaResultados();
+		
+		
+		probar.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				turno++;
+				Numero n = new Numero();
+				n.set(1, digit1.getValue());
+				n.set(2, digit2.getValue());
+				n.set(3, digit3.getValue());
+				n.set(4, digit4.getValue());
+				
+				Respuesta r = e.evaluar(n);
+				addRespuesta(r);
+				if (r.resuelto()) {
+					digit1.setCorrecto();
+					digit2.setCorrecto();
+					digit3.setCorrecto();
+					digit4.setCorrecto();
+					probar.setBackgroundResource(R.drawable.unlock);
+					probar.getBackground().setColorFilter(0x80000000,PorterDuff.Mode.SRC_ATOP);
+					probar.setEnabled(false);
+				}else{
+					if(turno >= 7){
+						digit1.setIncorrecto(codigo.get(1));
+						digit2.setIncorrecto(codigo.get(2));
+						digit3.setIncorrecto(codigo.get(3));
+						digit4.setIncorrecto(codigo.get(4));
+						probar.setBackgroundResource(R.drawable.lock);
+						probar.getBackground().setColorFilter(0x80000000,PorterDuff.Mode.SRC_ATOP);
+						probar.setEnabled(false);
+					}
+				}
 
-        });
+			}
+
+		});
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 	}
 
+	public void createTablaResultados() {
+		tResultados = (TableLayout) findViewById(R.id.results);
+		tResultados.addView(new TRRespuestaHead(this));
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
+		super.onCreateOptionsMenu(menu);
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
@@ -106,8 +132,11 @@ public class MainActivity extends ActionBarActivity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
+		if (id == R.id.new_game) {
+			Intent intent = getIntent();
+			finish();
+			startActivity(intent);
+			
 		}
 		return super.onOptionsItemSelected(item);
 	}
