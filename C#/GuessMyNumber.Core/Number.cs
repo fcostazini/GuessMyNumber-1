@@ -36,6 +36,18 @@ namespace GuessMyNumber.Core
             this.AddUnit(4, fourthUnitValue);
         }
 
+        public Number(string number)
+        {
+            var position = 1;
+            var numberChars = number.ToCharArray();
+
+            foreach (var numberChar in numberChars)
+            {
+                this.AddUnit(position, (int)numberChar);
+                position++;
+            }
+        }
+
         public void AddUnit(int position, int value)
         {
             this.AddUnit(new NumberUnit
@@ -93,7 +105,7 @@ namespace GuessMyNumber.Core
         public override string ToString()
         {
             var stringBuilder = new StringBuilder();
-//pro... muy pro
+
             foreach (var unit in this.Units.OrderBy(u => u.Position))
             {
                 stringBuilder.Append(unit.Value);
