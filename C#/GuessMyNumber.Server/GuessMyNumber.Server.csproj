@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9EC0E63B-BC4C-44E0-80DD-50D27E5A0E05}</ProjectGuid>
+    <ProjectGuid>{5537CCD4-F7E1-4EC9-B95F-011762F23A23}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GuessMyNumber.Core</RootNamespace>
-    <AssemblyName>GuessMyNumber.Core</AssemblyName>
+    <RootNamespace>GuessMyNumber.Server</RootNamespace>
+    <AssemblyName>GuessMyNumber.Server</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,8 +30,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Gamify.Sdk">
+    <Reference Include="Alchemy">
+      <HintPath>..\packages\Alchemy.2.2.1\lib\net40\Alchemy.dll</HintPath>
+    </Reference>
+    <Reference Include="Gamify.Sdk, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\Gamify.Sdk.dll</HintPath>
+    </Reference>
+    <Reference Include="Gamify.Server">
+      <HintPath>..\Lib\Gamify.Server.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -42,24 +49,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnalysisResult.cs" />
-    <Compile Include="AttemptResult.cs" />
-    <Compile Include="Game\GuessMyNumberPlayer.cs" />
-    <Compile Include="Interfaces\IAnalysisResult.cs" />
-    <Compile Include="Interfaces\IAttemptResult.cs" />
-    <Compile Include="Interfaces\INumber.cs" />
-    <Compile Include="Interfaces\INumberAnalyzer.cs" />
-    <Compile Include="Interfaces\INumberBuilder.cs" />
-    <Compile Include="Interfaces\INumberComparer.cs" />
-    <Compile Include="Interfaces\INumberUnit.cs" />
-    <Compile Include="Game\GuessMyNumberMove.cs" />
-    <Compile Include="Game\GuessMyNumberResponse.cs" />
-    <Compile Include="Number.cs" />
-    <Compile Include="NumberAnalyzer.cs" />
-    <Compile Include="NumberBuilder.cs" />
-    <Compile Include="NumberComparer.cs" />
-    <Compile Include="NumberUnit.cs" />
+    <Compile Include="GuessMyNumberWebSocketService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GuessMyNumber.Core\GuessMyNumber.Core.csproj">
+      <Project>{9ec0e63b-bc4c-44e0-80dd-50d27e5a0e05}</Project>
+      <Name>GuessMyNumber.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
