@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Gamify.Core">
+      <HintPath>..\Lib\Gamify.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Gamify.Sdk">
       <HintPath>..\Lib\Gamify.Sdk.dll</HintPath>
     </Reference>
@@ -44,6 +47,7 @@
   <ItemGroup>
     <Compile Include="AnalysisResult.cs" />
     <Compile Include="AttemptResult.cs" />
+    <Compile Include="Game\GuessMyNumberGameController.cs" />
     <Compile Include="Game\GuessMyNumberPlayer.cs" />
     <Compile Include="Interfaces\IAnalysisResult.cs" />
     <Compile Include="Interfaces\IAttemptResult.cs" />

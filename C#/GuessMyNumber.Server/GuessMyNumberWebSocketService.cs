@@ -20,20 +20,12 @@ namespace GuessMyNumber.Server
         {
         }
 
-        protected override IGamePlayerBase GetNewPlayer(UserConnectRequestObject userConnectObject, UserContext context)
-        {
-            return new GuessMyNumberPlayer
-            {
-                Name = userConnectObject.PlayerName
-            };
-        }
-
         protected override void PreOpenSession(OpenSessionRequestObject openSessionRequestObject)
         {
             base.PreOpenSession(openSessionRequestObject);
 
             var connectedClient = this.connectedClients
-                .First(c => c.Value.Player.Name == openSessionRequestObject.PlayerName)
+                .First(c => c.Value.Player.UserName == openSessionRequestObject.PlayerName)
                 .Value;
             var player = connectedClient.Player as GuessMyNumberPlayer;
             var playerNumber = new Number(openSessionRequestObject.AdditionalInformation);
@@ -46,7 +38,7 @@ namespace GuessMyNumber.Server
             base.PostOpenSession(gameInviteNotificationObject);
 
             var connectedClient = this.connectedClients
-                .First(c => c.Value.Player.Name == gameInviteNotificationObject.Player1Name)
+                .First(c => c.Value.Player.UserName == gameInviteNotificationObject.Player1Name)
                 .Value;
             var player = connectedClient.Player as GuessMyNumberPlayer;
 
@@ -58,7 +50,7 @@ namespace GuessMyNumber.Server
             base.PreGameAccepted(gameAcceptedRequestObject);
 
             var connectedClient = this.connectedClients
-                .First(c => c.Value.Player.Name == gameAcceptedRequestObject.PlayerName)
+                .First(c => c.Value.Player.UserName == gameAcceptedRequestObject.PlayerName)
                 .Value;
             var player = connectedClient.Player as GuessMyNumberPlayer;
             var playerNumber = new Number(gameAcceptedRequestObject.AdditionalInformation);
@@ -79,12 +71,12 @@ namespace GuessMyNumber.Server
                 PlayerName = moveRequestObject.PlayerName,
                 Number = number.ToString()
             };
-            var currentSession = this.gameController.GameSessions.First(s => s.Id == moveRequestObject.SessionId);
-            var destinationPlayerName = currentSession.Player1.Name == moveRequestObject.PlayerName ? 
-                currentSession.Player2.Name : 
-                currentSession.Player1.Name;
+            var currentSession = this.gameController.Sessions.First(s => s.Id == moveRequestObject.SessionId);
+            var destinationPlayerName = currentSession.Player1.Information.UserName == moveRequestObject.PlayerName ?
+                currentSession.Player2.Information.UserName :
+                currentSession.Player1.Information.UserName;
             var destinationClient = this.connectedClients
-                .First(c => c.Value.Player.Name == destinationPlayerName)
+                .First(c => c.Value.Player.UserName == destinationPlayerName)
                 .Value;
 
             this.SendNotification(GameNotificationType.GameMove, gameMoveNotificationObject, destinationClient);
@@ -99,7 +91,7 @@ namespace GuessMyNumber.Server
                 Bads = moveResponse.MoveResponseObject.Bads
             };
             var originClient = this.connectedClients
-                .First(c => c.Value.Player.Name == moveRequestObject.PlayerName)
+                .First(c => c.Value.Player.UserName == moveRequestObject.PlayerName)
                 .Value;
 
             this.SendNotification(GameNotificationType.GameMoveResult, gameMoveResultNotificationObject, originClient);
