@@ -10,7 +10,7 @@ namespace GuessMyNumber.Core.Game
 
         public IGamePlayer Information { get; set; }
 
-        public bool IsPlaying { get; set; }
+        public bool IsReady { get; set; }
 
         public bool NeedsToMove { get; set; }
 
