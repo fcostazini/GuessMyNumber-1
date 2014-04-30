@@ -1,5 +1,4 @@
 ﻿using Gamify.Sdk;
-using Gamify.Server;
 
 namespace GuessMyNumber.Core.Game
 {

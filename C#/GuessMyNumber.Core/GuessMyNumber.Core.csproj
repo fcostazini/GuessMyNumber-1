@@ -30,9 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Gamify.Core">
-      <HintPath>..\Lib\Gamify.Core.dll</HintPath>
-    </Reference>
     <Reference Include="Gamify.Sdk">
       <HintPath>..\Lib\Gamify.Sdk.dll</HintPath>
     </Reference>

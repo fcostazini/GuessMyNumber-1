@@ -7,8 +7,8 @@
     <ProjectGuid>{5537CCD4-F7E1-4EC9-B95F-011762F23A23}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GuessMyNumber.Server</RootNamespace>
-    <AssemblyName>GuessMyNumber.Server</AssemblyName>
+    <RootNamespace>GuessMyNumber.Service</RootNamespace>
+    <AssemblyName>GuessMyNumber.Service</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
