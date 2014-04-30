@@ -1,4 +1,5 @@
 ﻿using GuessMyNumber.Core.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -37,13 +38,16 @@ namespace GuessMyNumber.Core
         }
 
         public Number(string number)
+            : this()
         {
             var position = 1;
             var numberChars = number.ToCharArray();
 
             foreach (var numberChar in numberChars)
             {
-                this.AddUnit(position, (int)numberChar);
+                var unitValue = numberChar - '0';
+
+                this.AddUnit(position, unitValue);
                 position++;
             }
         }

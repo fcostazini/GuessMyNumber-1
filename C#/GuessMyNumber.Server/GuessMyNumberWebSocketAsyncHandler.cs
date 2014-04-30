@@ -1,4 +1,5 @@
-﻿using Gamify.Service;
+﻿using Gamify.Server;
+using Gamify.Service;
 using GuessMyNumber.Core.Game;
 
 namespace GuessMyNumber.Server

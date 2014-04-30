@@ -19,6 +19,7 @@ namespace GuessMyNumber.Core.Game
         public GuessMyNumberPlayer(IGamePlayer information)
         {
             this.numberComparer = new NumberComparer();
+            this.Information = information;
         }
 
         public void AssignNumber(INumber number)
