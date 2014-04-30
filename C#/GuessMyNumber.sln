@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuessMyNumber.Core", "Guess
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuessMyNumber.Core.Tests", "GuessMyNumber.Core.Tests\GuessMyNumber.Core.Tests.csproj", "{C7383340-5AE9-4257-A2EB-87B650D96E42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuessMyNumber.Server", "GuessMyNumber.Server\GuessMyNumber.Server.csproj", "{5537CCD4-F7E1-4EC9-B95F-011762F23A23}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuessMyNumber.Service", "GuessMyNumber.Server\GuessMyNumber.Service.csproj", "{5537CCD4-F7E1-4EC9-B95F-011762F23A23}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
