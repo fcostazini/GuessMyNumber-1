@@ -42,9 +42,9 @@ namespace GuessMyNumber.Server
         protected override void DecorateGameInvitation(GameInviteNotificationObject gameInviteNotificationObject)
         {
             var currentSession = this.gameController.Sessions.First(s => s.Id == gameInviteNotificationObject.SessionId);
-            var sessionPlayer2 = currentSession.Player2 as GuessMyNumberPlayer;
+            var sessionPlayer1 = currentSession.Player1 as GuessMyNumberPlayer;
 
-            gameInviteNotificationObject.AdditionalInformation = sessionPlayer2.Number.ToString();
+            gameInviteNotificationObject.AdditionalInformation = sessionPlayer1.Number.ToString();
         }
 
         protected override void GetSessionPlayer2Ready(GameAcceptedRequestObject gameAcceptedRequestObject)
@@ -81,6 +81,7 @@ namespace GuessMyNumber.Server
         private void SendMoveNotification(GuessMyNumberMoveRequestObject moveRequestObject, string destinationPlayerName, INumber number)
         {
             var client = this.connectedClients
+                .Where(c => c.Value.Player != null)
                 .First(c => c.Value.Player.UserName == destinationPlayerName)
                 .Value;
             var gameMoveNotificationObject = new GuessMyNumberMoveNotificationObject
@@ -105,6 +106,7 @@ namespace GuessMyNumber.Server
                 Bads = moveResponse.MoveResponseObject.Bads
             };
             var originClient = this.connectedClients
+                .Where(c => c.Value.Player != null)
                 .First(c => c.Value.Player.UserName == moveRequestObject.PlayerName)
                 .Value;
 
