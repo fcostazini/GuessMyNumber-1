@@ -1,8 +1,7 @@
-﻿using Alchemy.Classes;
-using Gamify.Sdk;
-using Gamify.Server.Configuration;
-using Gamify.Server.Contracts.Notifications;
-using Gamify.Server.Contracts.Requests;
+﻿using Gamify.Sdk;
+using Gamify.Service;
+using Gamify.Service.Contracts.Notifications;
+using Gamify.Service.Contracts.Requests;
 using GuessMyNumber.Core;
 using GuessMyNumber.Core.Game;
 using GuessMyNumber.Core.Interfaces;
@@ -10,14 +9,13 @@ using GuessMyNumber.Server.Contracts;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
-using WebSocketsTest.Server.Services;
 
 namespace GuessMyNumber.Server
 {
-    public class GuessMyNumberWebSocketService : GamifyWebSocketService
+    public class GuessMyNumberService : GamifyService
     {
-        public GuessMyNumberWebSocketService(IGamifyConfiguration configuration, IGameController controller)
-            : base(configuration, controller)
+        public GuessMyNumberService(IGameController controller)
+            : base(controller)
         {
         }
 
@@ -58,7 +56,7 @@ namespace GuessMyNumber.Server
             sessionPlayer2.AssignNumber(player2Number);
         }
 
-        protected override void HandleGameMove(string serializedRequestObject, UserContext context)
+        protected override void HandleGameMove(string serializedRequestObject)
         {
             var moveRequestObject = JsonConvert.DeserializeObject<GuessMyNumberMoveRequestObject>(serializedRequestObject);
             var number = new Number(moveRequestObject.Number);

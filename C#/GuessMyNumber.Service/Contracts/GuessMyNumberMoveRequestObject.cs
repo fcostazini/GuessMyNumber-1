@@ -1,4 +1,4 @@
-﻿using Gamify.Server.Contracts.Requests;
+﻿using Gamify.Service.Contracts.Requests;
 
 namespace GuessMyNumber.Server.Contracts
 {
