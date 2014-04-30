@@ -62,8 +62,30 @@ namespace GuessMyNumber.Server
             var number = new Number(moveRequestObject.Number);
             var move = new GuessMyNumberMove(number);
             var moveResponse = this.gameController.HandleMove<INumber, IAttemptResult>(moveRequestObject.PlayerName, moveRequestObject.SessionId, move);
-
             var currentSession = this.gameController.Sessions.First(s => s.Id == moveRequestObject.SessionId);
+
+            if (moveResponse.MoveResponseObject.IsWinner())
+            {
+                var winnerPlayerName = moveRequestObject.PlayerName;
+                var looserPlayerName = currentSession.Player1.Information.UserName == winnerPlayerName ?
+                    currentSession.Player2.Information.UserName :
+                    currentSession.Player1.Information.UserName;
+                var gameFinishedNotificationObject = new GameFinishedNotificationObject
+                {
+                    SessionId = currentSession.Id,
+                    WinnerPlayerName = winnerPlayerName,
+                    LooserPlayerName = looserPlayerName
+                };
+                var sessionClients = this.connectedClients
+                    .Where(c => c.Value.Player != null)
+                    .Where(c => c.Value.Player.UserName == winnerPlayerName || c.Value.Player.UserName == looserPlayerName)
+                    .Select(c => c.Value);
+
+                this.SendBroadcastNotification(GameNotificationType.GameFinished, gameFinishedNotificationObject, sessionClients.ToArray());
+
+                return;
+            }
+
             var originPlayer = currentSession.Player1.Information.UserName == moveRequestObject.PlayerName ?
                 currentSession.Player1 :
                 currentSession.Player2;
