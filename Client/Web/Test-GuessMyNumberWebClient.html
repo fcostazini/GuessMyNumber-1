@@ -1,0 +1,278 @@
+<!DOCTYPE HTML>
+<html lang = "en">
+	<head>
+      <title>Guess My Number Test</title>
+      <meta charset = "UTF-8" />
+	  <link href="css/grid.css" rel="stylesheet" /> 
+      <link href="css/styles.css" rel="stylesheet" /> 
+	  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	  <script language="javascript" type="text/javascript">
+		  var websocket;
+		  var loggedUser = { UserName: '', Session: '' };
+		  
+		  $(function() {
+			$('#connect').click(function(e) {
+				if ("WebSocket" in window){
+					  LogMessage('Connecting...');
+					  $('#status').removeClass('offline').addClass('pending').text('Connecting...');
+					  
+					  websocket = new WebSocket("ws://ec2-54-207-14-192.sa-east-1.compute.amazonaws.com/guessmynumber/play");
+					  
+					  //attach event handlers
+					  websocket.onopen = onOpen;
+					  websocket.onclose = onClose;
+					  websocket.onmessage = onMessage;
+					  websocket.onerror = onError;
+				} else {
+				  alert("WebSockets not supported on your browser.");
+				}
+			});
+			
+			$('#register').click(function(e) {
+			  e.preventDefault();
+			  
+			  var name = $('#name').val();
+
+			  loggedUser.UserName = name;
+			  
+			  var playerConnectRequest = { PlayerName : name };
+			  var serializedRequest = JSON.stringify(playerConnectRequest);
+
+			  var request = { Type: 1, SerializedRequestObject: serializedRequest };
+
+			  websocket.send(JSON.stringify(request));
+
+			  $('#playerLogged').text(loggedUser.UserName);
+			  $('#userConnected').show('fast');
+			  $('#usersSection').show('fast');
+			  $('#connectUser').hide('fast', function() { $('#newGame').show('fast'); });
+			});
+
+			$('#startGame').click(function(e) {
+			  e.preventDefault();
+			  
+			  var invitedPlayerName = $('#versusName').val();
+			  var playerNumber = $('#playerNumber').val();
+			  var createGameRequest = { PlayerName : loggedUser.UserName, InvitedPlayerName : invitedPlayerName, AdditionalInformation : playerNumber };
+			  var serializedRequest = JSON.stringify(createGameRequest);
+
+			  var request = { Type: 2, SerializedRequestObject: serializedRequest };
+
+			  websocket.send(JSON.stringify(request));
+
+			  $('#newGame').hide('fast', function() { $('#tryNumber').show('fast'); });
+			});
+
+			$('#acceptGameRequest').click(function(e) {
+			  e.preventDefault();
+			  
+			  var playerNumber = $('#player2Number').val();
+			  var gameAcceptedRequest = { SessionId : loggedUser.Session, PlayerName : loggedUser.UserName, AdditionalInformation : playerNumber };
+			  var serializedRequest = JSON.stringify(gameAcceptedRequest);
+
+			  var request = { Type: 3, SerializedRequestObject: serializedRequest };
+
+			  websocket.send(JSON.stringify(request));
+			  
+			  $('#acceptGame').hide('fast', function() { $('#tryNumber').show('fast'); });
+			});
+			
+			$('#sendNumber').click(function(e) {
+			  e.preventDefault();
+			  
+			  var number = $('#number').val();
+			  var gameMoveRequest = { SessionId: loggedUser.Session, PlayerName : loggedUser.UserName, Number: number };
+			  var serializedRequest = JSON.stringify(gameMoveRequest);
+
+			  var request = { Type: 4, SerializedRequestObject: serializedRequest };
+
+			  websocket.send(JSON.stringify(request));
+			});
+			
+			$('#disconnectUser').click(function(e) {
+			  e.preventDefault();
+			  
+			  var userDisconnectRequest = { PlayerName : loggedUser.UserName };
+			  var serializedRequest = JSON.stringify(userDisconnectRequest);
+
+			  var request = { Type: 255, SerializedRequestObject: serializedRequest };
+
+			  websocket.send(JSON.stringify(request));
+			  
+			  $('#newGame').hide('fast');
+			  $('#acceptGame').hide('fast');
+			  $('#tryNumber').hide('fast');
+			  $('#userConnected').hide('fast');
+			  $('#connectUser').show('fast');
+			});
+		  });
+		  
+		  function onOpen(evt){
+			LogMessage('Connected to Game Server');
+			
+			$('#status').removeClass('pending').addClass('online').text('Online');
+			$('#connect').hide('fast', function() { $('#connectUser').show('fast'); });
+		  }
+		  
+		  function onClose(evt){
+			LogMessage('Connection to Game Server closed.');
+			
+			$('#status').removeClass('pending').removeClass('online').addClass('offline').text('Offline');
+			$('#onlineUsers').text('');
+			$('#registerName, #sendMessage').hide('fast', function() { $('#connectToServer').show('fast'); });
+		  }
+		  
+		  function onMessage(evt){
+			ParseResponse(event.data);
+		  }
+		  
+		  function onError(evt){
+			LogMessage("Error:" + evt.data);
+		  }
+		  
+		  function ParseResponse(response) {
+			var notification = JSON.parse(response);
+			var notificationObject = JSON.parse(notification.SerializedNotificationObject);
+
+			if (notification.Type == 1) { //UserConnected
+			  var message = notificationObject.Message;
+			  
+			  LogMessage(message);
+			  
+			  var connectedUsers = $('#onlineUsers').text();
+			  
+			  if(connectedUsers == '') {
+				connectedUsers = notificationObject.PlayerName;
+			  } else {
+				connectedUsers = connectedUsers + ", " + notificationObject.PlayerName;
+			  }
+
+			  $('#onlineUsers').text(connectedUsers);
+			}else if (notification.Type == 2) { //SessionOpened
+			  var message = notificationObject.Message;
+			  
+			  LogMessage(message);
+			  
+			  me.Session = notificationObject.SessionId;
+			}else if (notification.Type == 3) { // GameInvite
+			  var message = notificationObject.Message;
+			  
+			  LogMessage(message);
+			  
+			  $('#newGame').hide('fast', function() { $('#acceptGame').show('fast'); });
+			  $('#sessionId').val(notificationObject.SessionId);
+			  $('#player1Name').val(notificationObject.Player1Name);
+			  
+			  loggedUser.Session = notificationObject.SessionId;
+			}else if (notification.Type == 4) { //GameMove
+			  var message = notificationObject.Message;
+			  
+			  LogMessage(message);
+			}else if (notification.Type == 5) { //GameMoveResult
+			  var message = notificationObject.Message;
+			  
+			  LogMessage(message);
+			}else if (notification.Type == 6) { //SessionAbandoned
+			  var message = notificationObject.Message;
+			  
+			  LogMessage(message);
+			}else if (notification.Type == 7) { //UserDisconnected
+			  var message = notificationObject.Message;
+			  
+			  LogMessage(message);
+		    }else if (notification.Type == 8) { //GameFinished
+			  var message = notificationObject.Message;
+			  
+			  alert(message);
+			}else if (notification.Type == 254) { //Message
+			  var message = notificationObject.Message;
+			  
+			  LogMessage(message);
+			}else if (notification.Type == 255) { // Error
+			  var message = notificationObject.Message;
+			  
+			  LogMessage(message);
+			}
+		  }
+		  
+		  function LogMessage(message) {
+			var p = $('<p></p>').text(message);
+			$('#results').prepend(p);
+		  }
+	  </script>
+	</head>
+	<body> 
+      <div class="container_12"> 
+        <header class="grid_12"> 
+          <h1>Guess My Number Test</h1> 
+          <h2>Status: <span id="status" class="offline">Offline</span></h2>
+		</header> 
+      </div> 
+
+      <div class="clear"></div> 
+
+      <div class="container_12"> 
+        <section class="grid_12"> 
+          <button id="connect">Connect to game server</button>
+          <br /> 
+
+		  <div id="userConnected" style="display: none;">
+			  <fieldset title="Connect User"> 
+			    <button id="disconnectUser" type="submit">Log Off</button> 
+				<legend>Player logged:</legend> 
+				<span id="playerLogged" />
+			  </fieldset>	
+		  </div>
+		  
+		  <div id="connectUser" style="display: none;">
+			  <fieldset title="Connect User"> 
+				<legend>Connect User</legend> 
+				<input id="name" />
+				<button id="register" type="submit">Connect</button> 
+			  </fieldset>	
+		  </div>
+
+		  <div id="newGame" style="display: none;">
+			  <fieldset title="New Game"> 
+				<legend>New Game</legend> 
+				Versus Player Name: <input id="versusName" />
+				Your number: <input id="playerNumber" />
+				<button id="startGame" type="submit">Start</button> 
+			  </fieldset>
+	      </div>		  
+		  
+		  <div id="acceptGame" style="display: none;">
+			  <fieldset title="Accept Game"> 
+				<legend>Accept Game</legend> 
+				Session: <input id="sessionId" />
+				Versus Player Name: <input id="player1Name" />
+				Your number: <input id="player2Number" />
+				<button id="acceptGameRequest" type="submit">Accept</button> 
+			  </fieldset>	
+		  </div>
+		  
+		  <div id="tryNumber" style="display: none;">
+			  <fieldset title="Try Number"> 
+				<legend>Try Number</legend> 
+				<input id="number" type="text" />
+				<button id="sendNumber" type="submit">Try</button> 
+			  </fieldset>	
+		  </div>	  
+        </section>
+
+        <div class="clear"></div>
+
+        <section id="usersSection" class="grid_12" style="display: none;">
+          <span>Players connected: <span id="onlineUsers"></span></span><br />
+          <pre id="results"></pre> 
+          </section>
+        </div> 
+
+        <div class="clear"></div> 
+
+        <div class="container_12"> 
+          <footer class="grid_12"> 
+          </footer> 
+        </div> 
+      </body> 
+</html>
