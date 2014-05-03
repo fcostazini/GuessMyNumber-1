@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -18,21 +18,71 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
-    <style name="FullscreenTheme" parent="android:Theme.NoTitleBar">
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowBackground">@null</item>
-        <item name="metaButtonBarStyle">@style/ButtonBar</item>
-        <item name="metaButtonBarButtonStyle">@style/ButtonBarButton</item>
+    <style name="LoginFormContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">16dp</item>
     </style>
 
-    <style name="ButtonBar">
-        <item name="android:paddingLeft">2dp</item>
-        <item name="android:paddingTop">5dp</item>
-        <item name="android:paddingRight">2dp</item>
-        <item name="android:paddingBottom">0dp</item>
-        <item name="android:background">@android:drawable/bottom_bar</item>
+    <style name="ButtonOptionMenu">
+        <item name="android:textColor">#ffffffff</item>
+        <item name="android:textSize">30dp</item>
+        <item name="android:background">@android:color/transparent</item>
     </style>
 
-    <style name="ButtonBarButton" />
+    <style name="ResultadoDuelo">
+        <item name="android:textColor">#ff062D89</item>
+        <item name="android:textSize">28dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="DueloNumberPiker_Button">
+        <item name="android:textColor">#ff062D89</item>
+        <item name="android:textSize">40dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="DueloNumberPiker_Number">
+        <item name="android:textColor">#ff062D89</item>
+        <item name="android:textSize">32dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="CellHelpTable">
+        <item name="android:textColor">#ff062D89</item>
+        <item name="android:textSize">32dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@drawable/cell_borders</item>
+    </style>
+        <style name="CellHelpTableSP">
+        <item name="android:textColor">#ffffffff</item>
+        <item name="android:textSize">32dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@drawable/cell_borders_sp</item>
+    </style>
+
+    <style name="ResultadoSinglePLayer">
+        <item name="android:textColor">#ffffffff</item>
+        <item name="android:textSize">30dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="SP_NumberPiker_Button">
+        <item name="android:textColor">#ffffffff</item>
+        <item name="android:textSize">40dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="SP_NumberPiker_Number">
+        <item name="android:textColor">#ffffffff</item>
+        <item name="android:textSize">32dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
 </resources>
