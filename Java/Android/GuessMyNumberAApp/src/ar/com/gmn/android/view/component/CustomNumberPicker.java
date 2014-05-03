@@ -2,32 +2,29 @@ package ar.com.gmn.android.view.component;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import ar.com.gmn.android.R;
 
 public class CustomNumberPicker extends LinearLayout {
-private ImageView upArrow;
-private ImageView downArrow;
+private TextView upArrow;
+private TextView downArrow;
 private TextView numero;
 private Integer current;
-private ImageViewOnTouchListener touchListerner;
+
+//private ImageViewOnTouchListener touchListerner;
 	public CustomNumberPicker(Context context) {
 		super(context);
 		current = 0;
-		 touchListerner = new ImageViewOnTouchListener();
+//		 touchListerner = new ImageViewOnTouchListener();
 		// TODO Auto-generated constructor stub
-		upArrow = new ImageView(context);
-		downArrow  = new ImageView(context);
+		upArrow = new TextView(context);
+		downArrow  = new TextView(context);
 		numero = new TextView(context);
-		createUpButton();
-		createDownButton();
+		createUpButton(context);
+		createDownButton(context);
 		
 		createNumero(context);
 		this.setOrientation(LinearLayout.VERTICAL);
@@ -40,23 +37,19 @@ private ImageViewOnTouchListener touchListerner;
 
 	public void createNumero(Context context) {
 		LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(60,60);
-		numero.setBackgroundColor(Color.TRANSPARENT);
-		Typeface type = Typeface.createFromAsset(context.getAssets(),"fonts/Digital.otf");
-		numero.setTypeface(type);
-		numero.setTextColor(Color.BLACK);
-		numero.setTextSize(30);
-		numero.setGravity(Gravity.CENTER);
+		
 		numero.setText(current.toString());
+		numero.setGravity(Gravity.CENTER);
 		numero.setLayoutParams(parms);
-		numero.setBackgroundResource(R.drawable.panel);
 	}
 
-	public void createUpButton() {
+	public void createUpButton(Context context) {
 		LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(90,60);
 		
 		upArrow.setLayoutParams(parms);
-		upArrow.setImageResource(R.drawable.up_arrow);
-		upArrow.setOnTouchListener(this.touchListerner);
+		upArrow.setText("+");
+		upArrow.setGravity(Gravity.CENTER);
+		upArrow.setLayoutParams(parms);
 		upArrow.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -69,10 +62,12 @@ private ImageViewOnTouchListener touchListerner;
 		});
 	}
 
-	public void createDownButton() {
+	public void createDownButton(Context context) {
 		LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(90,60);
-		downArrow.setImageResource(R.drawable.down_arrow);
+		downArrow.setText("-");
+		downArrow.setGravity(Gravity.CENTER);
 		downArrow.setLayoutParams(parms);
+		
 		downArrow.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -82,7 +77,7 @@ private ImageViewOnTouchListener touchListerner;
 			}
 	
 		});
-		downArrow.setOnTouchListener(this.touchListerner);
+//		downArrow.setOnTouchListener(this.touchListerner);
 	}
 	
 	private Integer getNext() {
@@ -118,5 +113,37 @@ private ImageViewOnTouchListener touchListerner;
 		
 		this.numero.setText(numero.toString());
 		this.numero.setShadowLayer(10, 0, 0, Color.RED);
+	}
+
+	public void setButtonStyle(int style) {
+		this.upArrow.setTextAppearance(this.getContext(), style);
+		this.downArrow.setTextAppearance(this.getContext(), style);
+		
+	}
+
+	public void setNumberStyle(int style) {
+		this.numero.setTextAppearance(this.getContext(), style);
+		
+	}
+
+	public void setNumberFrame(int border) {
+		this.numero.setBackgroundResource(border);
+		
+	}
+	public void setButtonFrame(int border) {
+		this.upArrow.setBackgroundResource(border);
+		this.downArrow.setBackgroundResource(border);
+		
+	}
+
+	public void setButtonTypeFace(Typeface tf) {
+		this.upArrow.setTypeface(tf);
+		this.downArrow.setTypeface(tf);
+		
+	}
+
+	public void setNumberTypeFace(Typeface tf) {
+		this.numero.setTypeface(tf);
+		
 	}
 }

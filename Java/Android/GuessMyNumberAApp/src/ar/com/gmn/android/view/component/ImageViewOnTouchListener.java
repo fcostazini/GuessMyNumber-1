@@ -5,6 +5,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class ImageViewOnTouchListener implements OnTouchListener{
 	public Integer current;
@@ -17,9 +18,9 @@ public class ImageViewOnTouchListener implements OnTouchListener{
 
          switch (event.getAction()) {
              case MotionEvent.ACTION_DOWN: {
-                 ImageView view = (ImageView) v;
+                 TextView view = (TextView) v;
                  //overlay is black with transparency of 0x77 (119)
-                 view.getDrawable().setColorFilter(0x77000000,PorterDuff.Mode.SRC_ATOP);
+//                 view.getDrawable().setColorFilter(0x77000000,PorterDuff.Mode.SRC_ATOP);
                  view.invalidate();
                  break;
              }

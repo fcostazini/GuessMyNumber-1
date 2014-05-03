@@ -29,6 +29,8 @@ private List<TextView> textos;
 		digit1.setTypeface(type);
 		digit1.setText(n.get(1).toString());
 		
+		
+		
 		digit2 = new TextView(context);
 		digit2.setTypeface(type);
 		digit2.setText(n.get(2).toString());
@@ -48,6 +50,7 @@ private List<TextView> textos;
 		this.addText(digit4);
 		
 		
+		
 	}
 
 
@@ -59,7 +62,10 @@ private List<TextView> textos;
 
 
 	public void setTypeface(Typeface type2) {
-		this.type = type2;
+		for (TextView text : textos) {
+			text.setTypeface(type2);
+		}
+		
 		
 	}
 	
@@ -76,6 +82,14 @@ private List<TextView> textos;
 			text.setTextColor(color);
 		}
 		
+		
+	}
+
+
+	public void setTextAppearance(Context context, int style) {
+		for (TextView text : textos) {
+			text.setTextAppearance(context, style);
+		}
 		
 	}
 

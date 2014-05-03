@@ -12,12 +12,12 @@ public class Numero {
 	public static Numero getRandom(Integer digits) {
 		Numero n = new Numero();
 		Random r = new Random();
-		Integer d =r.nextInt(9);
-		
+		Integer d = r.nextInt(9);
+
 		for (int i = 1; i <= digits; i++) {
-			
-			while(n.contiene(d)) {
-				d = r.nextInt(9);	
+
+			while (n.contiene(d)) {
+				d = r.nextInt(9);
 			}
 			n.set(i, d);
 		}
@@ -120,6 +120,17 @@ public class Numero {
 	public boolean contiene(Integer comparado) {
 
 		return this.numero.contains(comparado);
+	}
+
+	public boolean tieneRepetidos() {
+		for (int i = 1; i <=this.numero.size(); i++) {
+			for (int j = 1; j <=this.numero.size(); j++) {
+				if(i!=j && this.get(i)==this.get(j)){
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	public List<Integer> getPosicionesIniciales() {
