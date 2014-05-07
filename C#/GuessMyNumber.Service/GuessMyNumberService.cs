@@ -21,15 +21,9 @@ namespace GuessMyNumber.Server
 
         protected override IEnumerable<ISessionGamePlayerBase> GetSessionPlayers(CreateGameRequestObject createGameRequestObject)
         {
-            var connectedPlayer1 = this.connectedClients
-                .Where(c => c.Value.Player != null)
-                .First(c => c.Value.Player.UserName == createGameRequestObject.PlayerName)
-                .Value.Player;
+            var connectedPlayer1 = this.gameController.Players.First(p => p.UserName == createGameRequestObject.PlayerName);
             var sessionPlayer1 = new GuessMyNumberPlayer(connectedPlayer1);
-            var connectedPlayer2 = this.connectedClients
-                .Where(c => c.Value.Player != null)
-                .First(c => c.Value.Player.UserName == createGameRequestObject.InvitedPlayerName)
-                .Value.Player;
+            var connectedPlayer2 = this.gameController.Players.First(p => p.UserName == createGameRequestObject.InvitedPlayerName);
             var sessionPlayer2 = new GuessMyNumberPlayer(connectedPlayer2);
 
             var playerNumber = new Number(createGameRequestObject.AdditionalInformation);
@@ -76,12 +70,8 @@ namespace GuessMyNumber.Server
                     WinnerPlayerName = winnerPlayerName,
                     LooserPlayerName = looserPlayerName
                 };
-                var sessionClients = this.connectedClients
-                    .Where(c => c.Value.Player != null)
-                    .Where(c => c.Value.Player.UserName == winnerPlayerName || c.Value.Player.UserName == looserPlayerName)
-                    .Select(c => c.Value);
 
-                this.SendBroadcastNotification(GameNotificationType.GameFinished, gameFinishedNotificationObject, sessionClients.ToArray());
+                this.SendBroadcastNotification(GameNotificationType.GameFinished, gameFinishedNotificationObject, winnerPlayerName, looserPlayerName);
 
                 return;
             }
@@ -102,10 +92,6 @@ namespace GuessMyNumber.Server
 
         private void SendMoveNotification(GuessMyNumberMoveRequestObject moveRequestObject, string destinationPlayerName, INumber number)
         {
-            var client = this.connectedClients
-                .Where(c => c.Value.Player != null)
-                .First(c => c.Value.Player.UserName == destinationPlayerName)
-                .Value;
             var gameMoveNotificationObject = new GuessMyNumberMoveNotificationObject
             {
                 SessionId = moveRequestObject.SessionId,
@@ -113,7 +99,7 @@ namespace GuessMyNumber.Server
                 Number = number.ToString()
             };
 
-            this.SendNotification(GameNotificationType.GameMove, gameMoveNotificationObject, client);
+            this.SendNotification(GameNotificationType.GameMove, gameMoveNotificationObject, destinationPlayerName);
         }
 
         private void SendMoveResultNotification(GuessMyNumberMoveRequestObject moveRequestObject, IGameMoveResponse<IAttemptResult> moveResponse, string destinationPlayerName, INumber number)
@@ -127,12 +113,8 @@ namespace GuessMyNumber.Server
                 Regulars = moveResponse.MoveResponseObject.Regulars,
                 Bads = moveResponse.MoveResponseObject.Bads
             };
-            var originClient = this.connectedClients
-                .Where(c => c.Value.Player != null)
-                .First(c => c.Value.Player.UserName == moveRequestObject.PlayerName)
-                .Value;
 
-            this.SendNotification(GameNotificationType.GameMoveResult, gameMoveResultNotificationObject, originClient);
+            this.SendNotification(GameNotificationType.GameMoveResult, gameMoveResultNotificationObject, moveRequestObject.PlayerName);
         }
     }
 }

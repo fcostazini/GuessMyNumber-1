@@ -11,41 +11,25 @@
 		  var loggedUser = { UserName: '', Session: '' };
 		  
 		  $(function() {
-			$('#connect').click(function(e) {
-				if ("WebSocket" in window){
-					  LogMessage('Connecting...');
-					  $('#status').removeClass('offline').addClass('pending').text('Connecting...');
-					  
-					  websocket = new WebSocket("ws://ec2-54-207-14-192.sa-east-1.compute.amazonaws.com/guessmynumber/play");
-					  
-					  //attach event handlers
-					  websocket.onopen = onOpen;
-					  websocket.onclose = onClose;
-					  websocket.onmessage = onMessage;
-					  websocket.onerror = onError;
-				} else {
-				  alert("WebSockets not supported on your browser.");
-				}
-			});
-			
 			$('#register').click(function(e) {
 			  e.preventDefault();
 			  
+			  $('#status').removeClass('offline').addClass('pending').text('Connecting...');
+							
 			  var name = $('#name').val();
 
 			  loggedUser.UserName = name;
 			  
-			  var playerConnectRequest = { PlayerName : name };
-			  var serializedRequest = JSON.stringify(playerConnectRequest);
-
-			  var request = { Type: 1, SerializedRequestObject: serializedRequest };
-
-			  websocket.send(JSON.stringify(request));
-
-			  $('#playerLogged').text(loggedUser.UserName);
-			  $('#userConnected').show('fast');
-			  $('#usersSection').show('fast');
-			  $('#connectUser').hide('fast', function() { $('#newGame').show('fast'); });
+			  //var uri = "ws://192.168.1.100/guessmynumber/api/guessmynumber?userName=" + name;
+			  var uri = "ws://ec2-54-207-14-192.sa-east-1.compute.amazonaws.com/guessmynumber/api/guessmynumber?userName=" + name;
+			  
+			  websocket = new WebSocket(uri);
+					  
+			  //attach event handlers
+			  websocket.onopen = onOpen;
+			  websocket.onclose = onClose;
+			  websocket.onmessage = onMessage;
+			  websocket.onerror = onError;
 			});
 
 			$('#startGame').click(function(e) {
@@ -111,7 +95,11 @@
 			LogMessage('Connected to Game Server');
 			
 			$('#status').removeClass('pending').addClass('online').text('Online');
-			$('#connect').hide('fast', function() { $('#connectUser').show('fast'); });
+			
+		    $('#playerLogged').text(loggedUser.UserName);
+		    $('#userConnected').show('fast');
+		    $('#usersSection').show('fast');
+		    $('#connectUser').hide('fast', function() { $('#newGame').show('fast'); });
 		  }
 		  
 		  function onClose(evt){
@@ -153,7 +141,7 @@
 			  
 			  LogMessage(message);
 			  
-			  me.Session = notificationObject.SessionId;
+			  loggedUser.Session = notificationObject.SessionId;
 			}else if (notification.Type == 3) { // GameInvite
 			  var message = notificationObject.Message;
 			  
@@ -213,9 +201,6 @@
 
       <div class="container_12"> 
         <section class="grid_12"> 
-          <button id="connect">Connect to game server</button>
-          <br /> 
-
 		  <div id="userConnected" style="display: none;">
 			  <fieldset title="Connect User"> 
 			    <button id="disconnectUser" type="submit">Log Off</button> 
@@ -224,7 +209,7 @@
 			  </fieldset>	
 		  </div>
 		  
-		  <div id="connectUser" style="display: none;">
+		  <div id="connectUser">
 			  <fieldset title="Connect User"> 
 				<legend>Connect User</legend> 
 				<input id="name" />
