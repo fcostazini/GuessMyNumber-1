@@ -5,9 +5,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuessMyNumber.Core", "Guess
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuessMyNumber.Core.Tests", "GuessMyNumber.Core.Tests\GuessMyNumber.Core.Tests.csproj", "{C7383340-5AE9-4257-A2EB-87B650D96E42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameEngine.Sdk", "GameEngine.Sdk\GameEngine.Sdk.csproj", "{32DE41AE-52C3-4947-8FA7-4C9DA1848D77}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuessMyNumber.Service", "GuessMyNumber.Service\GuessMyNumber.Service.csproj", "{5537CCD4-F7E1-4EC9-B95F-011762F23A23}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameEngine.Core", "GameEngine.Core\GameEngine.Core.csproj", "{7D397231-8FA5-4808-9E6D-64AFBAC894F9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuessMyNumber.Server", "GuessMyNumber.Server\GuessMyNumber.Server.csproj", "{4E1ADBE1-F766-4257-A82E-8FE10D41F4A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,14 +23,14 @@ Global
 		{C7383340-5AE9-4257-A2EB-87B650D96E42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7383340-5AE9-4257-A2EB-87B650D96E42}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7383340-5AE9-4257-A2EB-87B650D96E42}.Release|Any CPU.Build.0 = Release|Any CPU
-		{32DE41AE-52C3-4947-8FA7-4C9DA1848D77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{32DE41AE-52C3-4947-8FA7-4C9DA1848D77}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{32DE41AE-52C3-4947-8FA7-4C9DA1848D77}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{32DE41AE-52C3-4947-8FA7-4C9DA1848D77}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7D397231-8FA5-4808-9E6D-64AFBAC894F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7D397231-8FA5-4808-9E6D-64AFBAC894F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7D397231-8FA5-4808-9E6D-64AFBAC894F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7D397231-8FA5-4808-9E6D-64AFBAC894F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5537CCD4-F7E1-4EC9-B95F-011762F23A23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5537CCD4-F7E1-4EC9-B95F-011762F23A23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5537CCD4-F7E1-4EC9-B95F-011762F23A23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5537CCD4-F7E1-4EC9-B95F-011762F23A23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E1ADBE1-F766-4257-A82E-8FE10D41F4A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E1ADBE1-F766-4257-A82E-8FE10D41F4A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E1ADBE1-F766-4257-A82E-8FE10D41F4A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E1ADBE1-F766-4257-A82E-8FE10D41F4A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,5 @@
 ﻿using GuessMyNumber.Core.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,6 +35,21 @@ namespace GuessMyNumber.Core
             : this(firstUnitValue, secondUnitValue, thirdUnitValue)
         {
             this.AddUnit(4, fourthUnitValue);
+        }
+
+        public Number(string number)
+            : this()
+        {
+            var position = 1;
+            var numberChars = number.ToCharArray();
+
+            foreach (var numberChar in numberChars)
+            {
+                var unitValue = numberChar - '0';
+
+                this.AddUnit(position, unitValue);
+                position++;
+            }
         }
 
         public void AddUnit(int position, int value)
@@ -93,7 +109,7 @@ namespace GuessMyNumber.Core
         public override string ToString()
         {
             var stringBuilder = new StringBuilder();
-//pro... muy pro
+
             foreach (var unit in this.Units.OrderBy(u => u.Position))
             {
                 stringBuilder.Append(unit.Value);

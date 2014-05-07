@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+<item>
+        <shape>
+            <stroke
+                android:width="@dimen/border"
+                android:color="#60000000" />
+
+            <solid android:color="@android:color/transparent"/>
+        </shape>
+    </item>
+    <item>
+        <inset
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:insetBottom="@dimen/negborder"
+            android:insetLeft="0dp"
+            android:insetRight="@dimen/negborder"
+            android:insetTop="0dp" >
+            <shape>
+                <stroke
+                    android:width="@dimen/border"
+                    android:color="#60ffffff" />
+
+                <solid android:color="@android:color/transparent" />
+            </shape>
+        </inset>
+    </item>
+</layer-list>

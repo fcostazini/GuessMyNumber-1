@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Gamify.Sdk">
+      <HintPath>..\Lib\Gamify.Sdk.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,6 +44,9 @@
   <ItemGroup>
     <Compile Include="AnalysisResult.cs" />
     <Compile Include="AttemptResult.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="Game\GuessMyNumberGameController.cs" />
+    <Compile Include="Game\GuessMyNumberPlayer.cs" />
     <Compile Include="Interfaces\IAnalysisResult.cs" />
     <Compile Include="Interfaces\IAttemptResult.cs" />
     <Compile Include="Interfaces\INumber.cs" />
@@ -56,12 +62,6 @@
     <Compile Include="NumberComparer.cs" />
     <Compile Include="NumberUnit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\GameEngine.Sdk\GameEngine.Sdk.csproj">
-      <Project>{32de41ae-52c3-4947-8fa7-4c9da1848d77}</Project>
-      <Name>GameEngine.Sdk</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
