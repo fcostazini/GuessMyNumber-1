@@ -61,6 +61,20 @@
 			  $('#acceptGame').hide('fast', function() { $('#tryNumber').show('fast'); });
 			});
 			
+			$('#rejectGameRequest').click(function(e) {
+			  e.preventDefault();
+			  
+			  var playerNumber = $('#player2Number').val();
+			  var gameRejectedRequest = { SessionId : loggedUser.Session, PlayerName : loggedUser.UserName };
+			  var serializedRequest = JSON.stringify(gameRejectedRequest);
+
+			  var request = { Type: 4, SerializedRequestObject: serializedRequest };
+
+			  websocket.send(JSON.stringify(request));
+			  
+			  $('#acceptGame').hide('fast', function() { $('#newGame').hide('fast'); });
+			});
+			
 			$('#sendNumber').click(function(e) {
 			  e.preventDefault();
 			  
@@ -68,7 +82,7 @@
 			  var gameMoveRequest = { SessionId: loggedUser.Session, PlayerName : loggedUser.UserName, Number: number };
 			  var serializedRequest = JSON.stringify(gameMoveRequest);
 
-			  var request = { Type: 4, SerializedRequestObject: serializedRequest };
+			  var request = { Type: 5, SerializedRequestObject: serializedRequest };
 
 			  websocket.send(JSON.stringify(request));
 			});
@@ -136,13 +150,7 @@
 			  }
 
 			  $('#onlineUsers').text(connectedUsers);
-			}else if (notification.Type == 2) { //SessionOpened
-			  var message = notificationObject.Message;
-			  
-			  LogMessage(message);
-			  
-			  loggedUser.Session = notificationObject.SessionId;
-			}else if (notification.Type == 3) { // GameInvite
+			}else if (notification.Type == 2) { // GameInvite
 			  var message = notificationObject.Message;
 			  
 			  LogMessage(message);
@@ -152,31 +160,45 @@
 			  $('#player1Name').val(notificationObject.Player1Name);
 			  
 			  loggedUser.Session = notificationObject.SessionId;
-			}else if (notification.Type == 4) { //GameMove
+			}else if (notification.Type == 3) { //GameCreated
 			  var message = notificationObject.Message;
 			  
 			  LogMessage(message);
-			}else if (notification.Type == 5) { //GameMoveResult
+			  
+			  loggedUser.Session = notificationObject.SessionId;
+			}else if (notification.Type == 4) { //GameRejected
 			  var message = notificationObject.Message;
 			  
 			  LogMessage(message);
-			}else if (notification.Type == 6) { //SessionAbandoned
+			}else if (notification.Type == 5) { //GameMove
 			  var message = notificationObject.Message;
 			  
 			  LogMessage(message);
-			}else if (notification.Type == 7) { //UserDisconnected
+			}else if (notification.Type == 6) { //GameMoveResult
 			  var message = notificationObject.Message;
 			  
 			  LogMessage(message);
-		    }else if (notification.Type == 8) { //GameFinished
+			}else if (notification.Type == 7) { //SessionAbandoned
+			  var message = notificationObject.Message;
+			  
+			  LogMessage(message);
+			}else if (notification.Type == 11) { //GameFinished
 			  var message = notificationObject.Message;
 			  
 			  alert(message);
-			}else if (notification.Type == 254) { //Message
+			}else if (notification.Type == 12) { //Message
 			  var message = notificationObject.Message;
 			  
 			  LogMessage(message);
-			}else if (notification.Type == 255) { // Error
+			}else if (notification.Type == 13) { //TypingMessage
+			  var message = notificationObject.Message;
+			  
+			  LogMessage(message);
+			}else if (notification.Type == 14) { //PlayerDisconnected
+			  var message = notificationObject.Message;
+			  
+			  LogMessage(message);
+		    }else if (notification.Type == 255) { // Error
 			  var message = notificationObject.Message;
 			  
 			  LogMessage(message);
