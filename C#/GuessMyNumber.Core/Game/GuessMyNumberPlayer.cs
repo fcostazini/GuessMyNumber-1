@@ -16,10 +16,13 @@ namespace GuessMyNumber.Core.Game
 
         public INumber Number { get; private set; }
 
+        public ISessionGamePlayerHistory<INumber, IAttemptResult> MovesHistory { get; private set; }
+
         public GuessMyNumberPlayer(IGamePlayer information)
         {
             this.numberComparer = new NumberComparer();
             this.Information = information;
+            this.MovesHistory = new SessionGamePlayerHistory<INumber, IAttemptResult>();
         }
 
         public void AssignNumber(INumber number)
@@ -45,6 +48,8 @@ namespace GuessMyNumber.Core.Game
 
             var triedNumber = move.MoveObject;
             var result = this.numberComparer.Compare(this.Number, triedNumber);
+
+            this.MovesHistory.Add(triedNumber, result);
 
             return new GuessMyNumberResponse(result);
         }
