@@ -6,6 +6,7 @@ using GuessMyNumber.Core;
 using GuessMyNumber.Core.Game;
 using GuessMyNumber.Core.Interfaces;
 using GuessMyNumber.Server.Contracts;
+using GuessMyNumber.Service.Contracts;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
@@ -88,6 +89,45 @@ namespace GuessMyNumber.Server
 
             this.SendMoveNotification(moveRequestObject, destinationPlayer.Information.UserName, number);
             this.SendMoveResultNotification(moveRequestObject, moveResponse, destinationPlayer.Information.UserName, number);
+        }
+
+        protected override void SendGameInformation(string playerName, IGameSession gameSession)
+        {
+            var sessionPlayer1 = gameSession.Player1 as GuessMyNumberPlayer;
+            var sessionPlayer2 = gameSession.Player2 as GuessMyNumberPlayer;
+            var sessionPlayer1History = new PlayerHistoryObject(sessionPlayer1.Information.UserName);
+            var sessionPlayer2History = new PlayerHistoryObject(sessionPlayer2.Information.UserName);
+
+            foreach (var player2Move in sessionPlayer1.MovesHistory.Moves)
+            {
+                sessionPlayer2History.AddMove(new PlayerHistoryItemObject
+                {
+                    Number = player2Move.Respose.Number.ToString(),
+                    Goods = player2Move.Respose.Goods,
+                    Regulars = player2Move.Respose.Regulars,
+                    Bads = player2Move.Respose.Bads
+                });
+            }
+
+            foreach (var player1Move in sessionPlayer2.MovesHistory.Moves)
+            {
+                sessionPlayer1History.AddMove(new PlayerHistoryItemObject
+                {
+                    Number = player1Move.Respose.Number.ToString(),
+                    Goods = player1Move.Respose.Goods,
+                    Regulars = player1Move.Respose.Regulars,
+                    Bads = player1Move.Respose.Bads
+                });
+            }
+
+            var gameInformationNotificationObject = new GuessMyNumberGameInformationNotificationObject
+            {
+                SessionId = gameSession.Id,
+                Player1History = sessionPlayer1History,
+                Player2History = sessionPlayer2History
+            };
+
+            this.SendNotification(GameNotificationType.SendGameInformation, gameInformationNotificationObject, playerName);
         }
 
         private void SendMoveNotification(GuessMyNumberMoveRequestObject moveRequestObject, string destinationPlayerName, INumber number)
