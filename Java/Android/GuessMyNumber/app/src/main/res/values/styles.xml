@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+
     -->
     <style name="AppBaseTheme" parent="Theme.AppCompat.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
+            backward-compatibility can go here.
+
         -->
     </style>
 
@@ -37,18 +39,21 @@
         <item name="android:gravity">center</item>
     </style>
 
-    <style name="DueloNumberPiker_Button">
+
+    <style name="DueloNumberPiker">
+        <item name="styleId">@integer/style_duelo</item>
         <item name="android:textColor">#ff062D89</item>
-        <item name="android:textSize">40dp</item>
+        <item name="android:textSize">30dp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:gravity">center</item>
     </style>
 
-    <style name="DueloNumberPiker_Number">
-        <item name="android:textColor">#ff062D89</item>
+    <style name="DueloNumberPiker_Button" parent="DueloNumberPiker">
         <item name="android:textSize">32dp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="DueloNumberPiker_Number" parent="DueloNumberPiker">
+        <item name="android:textSize">30dp</item>
     </style>
 
     <style name="CellHelpTable">
@@ -70,19 +75,45 @@
         <item name="android:gravity">center</item>
         <item name="android:textStyle">bold</item>
     </style>
-
-    <style name="SP_NumberPiker_Button">
+    <style name="SP_NumberPiker">
+        <item name="styleId">@integer/style_sp</item>
         <item name="android:textColor">#ffffffff</item>
         <item name="android:textSize">40dp</item>
         <item name="android:gravity">center</item>
         <item name="android:textStyle">bold</item>
     </style>
-
-    <style name="SP_NumberPiker_Number">
-        <item name="android:textColor">#ffffffff</item>
+    <style name="SP_NumberPiker_Button" parent="SP_NumberPiker">
         <item name="android:textSize">32dp</item>
+    </style>
+    <style name="SP_NumberPiker_Number" parent="SP_NumberPiker">
+        <item name="android:textSize">32dp</item>
+    </style>
+    <style name="duel_item_layout">
+        <item name="android:background">@drawable/chalk_frame</item>
+        <item name="android:gravity">center</item>
+        <item name="android:weightSum">5</item>
+        <item name="android:layout_margin">3dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_width">match_parent</item>
+
+
+    </style>
+
+    <style name="duel_item_layout.text">
+        <item name="android:textColor">#ffffffff</item>
+        <item name="android:textSize">30dp</item>
         <item name="android:gravity">center</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="duel_item_layout.photo_frame">
+        <item name="android:layout_weight">4</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">match_parent</item>
     </style>
 
 </resources>

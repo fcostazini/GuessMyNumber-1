@@ -11,7 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="20dp"
+        android:layout_margin="22dp"
         android:orientation="vertical" >
 
         <LinearLayout
@@ -20,38 +20,82 @@
             android:background="@android:color/transparent"
             android:orientation="vertical" >
 
-     
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:background="@android:color/transparent"
+                android:orientation="horizontal"
+                android:layout_weight="3">
 
                 <LinearLayout
                     android:id="@+id/numeroLayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:showDividers="middle" 
-                    android:orientation ="horizontal">
-                </LinearLayout>
-
-                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical" >
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="1dp"
+                    android:layout_weight="1">
+                    <ar.com.gmn.android.view.component.CustomNumberPicker2
+                        style="@style/SP_NumberPiker"
+                        android:layout_width="fill_parent"
+                        android:layout_weight="1"
+                        android:layout_marginBottom="2dp"
+                        android:layout_height="fill_parent"
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:gravity="center_horizontal" >
-                    </LinearLayout>
+                        android:id="@+id/digit1">
+
+                    </ar.com.gmn.android.view.component.CustomNumberPicker2>
+                    <ar.com.gmn.android.view.component.CustomNumberPicker2
+                        style="@style/SP_NumberPiker"
+                        android:layout_width="fill_parent"
+                        android:layout_weight="1"
+                        android:layout_marginBottom="2dp"
+                        android:layout_height="fill_parent"
+
+                        android:id="@+id/digit2">
+
+                    </ar.com.gmn.android.view.component.CustomNumberPicker2>
+                    <ar.com.gmn.android.view.component.CustomNumberPicker2
+                        style="@style/SP_NumberPiker"
+                        android:layout_width="fill_parent"
+                        android:layout_weight="1"
+                        android:layout_marginBottom="2dp"
+                        android:layout_height="fill_parent"
+
+                        android:id="@+id/digit3">
+
+                    </ar.com.gmn.android.view.component.CustomNumberPicker2>
+                    <ar.com.gmn.android.view.component.CustomNumberPicker2
+                        style="@style/SP_NumberPiker"
+                        android:layout_width="fill_parent"
+                        android:layout_weight="1"
+                        android:layout_marginBottom="2dp"
+                        android:layout_height="fill_parent"
+
+                        android:id="@+id/digit4">
+
+                    </ar.com.gmn.android.view.component.CustomNumberPicker2>
                 </LinearLayout>
-            
+                <ImageView
+                    android:id="@+id/prueba"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/uparrow"
+                    android:layout_weight="4"/>
+
+            </LinearLayout>
+
+
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:background="@android:color/transparent"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:layout_weight="1">
 
             <TableLayout
                 android:id="@+id/results"
