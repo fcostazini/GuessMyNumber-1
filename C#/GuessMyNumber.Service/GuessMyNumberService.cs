@@ -6,6 +6,7 @@ using GuessMyNumber.Core;
 using GuessMyNumber.Core.Game;
 using GuessMyNumber.Core.Interfaces;
 using GuessMyNumber.Server.Contracts;
+using GuessMyNumber.Service.Contracts;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,15 +22,9 @@ namespace GuessMyNumber.Server
 
         protected override IEnumerable<ISessionGamePlayerBase> GetSessionPlayers(CreateGameRequestObject createGameRequestObject)
         {
-            var connectedPlayer1 = this.connectedClients
-                .Where(c => c.Value.Player != null)
-                .First(c => c.Value.Player.UserName == createGameRequestObject.PlayerName)
-                .Value.Player;
+            var connectedPlayer1 = this.gameController.Players.First(p => p.UserName == createGameRequestObject.PlayerName);
             var sessionPlayer1 = new GuessMyNumberPlayer(connectedPlayer1);
-            var connectedPlayer2 = this.connectedClients
-                .Where(c => c.Value.Player != null)
-                .First(c => c.Value.Player.UserName == createGameRequestObject.InvitedPlayerName)
-                .Value.Player;
+            var connectedPlayer2 = this.gameController.Players.First(p => p.UserName == createGameRequestObject.InvitedPlayerName);
             var sessionPlayer2 = new GuessMyNumberPlayer(connectedPlayer2);
 
             var playerNumber = new Number(createGameRequestObject.AdditionalInformation);
@@ -76,12 +71,8 @@ namespace GuessMyNumber.Server
                     WinnerPlayerName = winnerPlayerName,
                     LooserPlayerName = looserPlayerName
                 };
-                var sessionClients = this.connectedClients
-                    .Where(c => c.Value.Player != null)
-                    .Where(c => c.Value.Player.UserName == winnerPlayerName || c.Value.Player.UserName == looserPlayerName)
-                    .Select(c => c.Value);
 
-                this.SendBroadcastNotification(GameNotificationType.GameFinished, gameFinishedNotificationObject, sessionClients.ToArray());
+                this.SendBroadcastNotification(GameNotificationType.GameFinished, gameFinishedNotificationObject, winnerPlayerName, looserPlayerName);
 
                 return;
             }
@@ -100,12 +91,47 @@ namespace GuessMyNumber.Server
             this.SendMoveResultNotification(moveRequestObject, moveResponse, destinationPlayer.Information.UserName, number);
         }
 
+        protected override void SendGameInformation(string playerName, IGameSession gameSession)
+        {
+            var sessionPlayer1 = gameSession.Player1 as GuessMyNumberPlayer;
+            var sessionPlayer2 = gameSession.Player2 as GuessMyNumberPlayer;
+            var sessionPlayer1History = new PlayerHistoryObject(sessionPlayer1.Information.UserName);
+            var sessionPlayer2History = new PlayerHistoryObject(sessionPlayer2.Information.UserName);
+
+            foreach (var player2Move in sessionPlayer1.MovesHistory.Moves)
+            {
+                sessionPlayer2History.AddMove(new PlayerHistoryItemObject
+                {
+                    Number = player2Move.Respose.Number.ToString(),
+                    Goods = player2Move.Respose.Goods,
+                    Regulars = player2Move.Respose.Regulars,
+                    Bads = player2Move.Respose.Bads
+                });
+            }
+
+            foreach (var player1Move in sessionPlayer2.MovesHistory.Moves)
+            {
+                sessionPlayer1History.AddMove(new PlayerHistoryItemObject
+                {
+                    Number = player1Move.Respose.Number.ToString(),
+                    Goods = player1Move.Respose.Goods,
+                    Regulars = player1Move.Respose.Regulars,
+                    Bads = player1Move.Respose.Bads
+                });
+            }
+
+            var gameInformationNotificationObject = new GuessMyNumberGameInformationNotificationObject
+            {
+                SessionId = gameSession.Id,
+                Player1History = sessionPlayer1History,
+                Player2History = sessionPlayer2History
+            };
+
+            this.SendNotification(GameNotificationType.SendGameInformation, gameInformationNotificationObject, playerName);
+        }
+
         private void SendMoveNotification(GuessMyNumberMoveRequestObject moveRequestObject, string destinationPlayerName, INumber number)
         {
-            var client = this.connectedClients
-                .Where(c => c.Value.Player != null)
-                .First(c => c.Value.Player.UserName == destinationPlayerName)
-                .Value;
             var gameMoveNotificationObject = new GuessMyNumberMoveNotificationObject
             {
                 SessionId = moveRequestObject.SessionId,
@@ -113,7 +139,7 @@ namespace GuessMyNumber.Server
                 Number = number.ToString()
             };
 
-            this.SendNotification(GameNotificationType.GameMove, gameMoveNotificationObject, client);
+            this.SendNotification(GameNotificationType.GameMove, gameMoveNotificationObject, destinationPlayerName);
         }
 
         private void SendMoveResultNotification(GuessMyNumberMoveRequestObject moveRequestObject, IGameMoveResponse<IAttemptResult> moveResponse, string destinationPlayerName, INumber number)
@@ -127,12 +153,8 @@ namespace GuessMyNumber.Server
                 Regulars = moveResponse.MoveResponseObject.Regulars,
                 Bads = moveResponse.MoveResponseObject.Bads
             };
-            var originClient = this.connectedClients
-                .Where(c => c.Value.Player != null)
-                .First(c => c.Value.Player.UserName == moveRequestObject.PlayerName)
-                .Value;
 
-            this.SendNotification(GameNotificationType.GameMoveResult, gameMoveResultNotificationObject, originClient);
+            this.SendNotification(GameNotificationType.GameMoveResult, gameMoveResultNotificationObject, moveRequestObject.PlayerName);
         }
     }
 }

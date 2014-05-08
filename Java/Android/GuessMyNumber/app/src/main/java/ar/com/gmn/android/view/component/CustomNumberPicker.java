@@ -1,12 +1,17 @@
 package ar.com.gmn.android.view.component;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import ar.com.gmn.android.R;
 
 public class CustomNumberPicker extends LinearLayout {
 private TextView upArrow;
@@ -18,9 +23,8 @@ private Integer current;
 	public CustomNumberPicker(Context context) {
 		super(context);
 		current = 0;
-//		 touchListerner = new ImageViewOnTouchListener();
-		// TODO Auto-generated constructor stub
 		upArrow = new TextView(context);
+
 		downArrow  = new TextView(context);
 		numero = new TextView(context);
 		createUpButton(context);
@@ -29,14 +33,17 @@ private Integer current;
 		createNumero(context);
 		this.setOrientation(LinearLayout.VERTICAL);
 		this.setGravity(Gravity.CENTER);
-		this.addView(upArrow);
+
+        this.addView(upArrow);
 		this.addView(numero);
 		this.addView(downArrow);
+
+
 		
 	}
 
 	public void createNumero(Context context) {
-		LayoutParams parms = new LayoutParams(60,60);
+		LayoutParams parms = new LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.FILL_PARENT,1f);
 		
 		numero.setText(current.toString());
 		numero.setGravity(Gravity.CENTER);
@@ -44,7 +51,7 @@ private Integer current;
 	}
 
 	public void createUpButton(Context context) {
-		LayoutParams parms = new LayoutParams(90,60);
+        LayoutParams parms = new LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.FILL_PARENT);
 		
 		upArrow.setLayoutParams(parms);
 		upArrow.setText("+");
@@ -63,7 +70,7 @@ private Integer current;
 	}
 
 	public void createDownButton(Context context) {
-		LayoutParams parms = new LayoutParams(90,60);
+        LayoutParams parms = new LayoutParams(LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.FILL_PARENT);
 		downArrow.setText("-");
 		downArrow.setGravity(Gravity.CENTER);
 		downArrow.setLayoutParams(parms);

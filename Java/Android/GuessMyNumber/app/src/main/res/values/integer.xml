@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="integer" name="style_duelo" format="integer">1</item>
+    <item type="integer" name="style_sp" format="integer">2</item>
+
+</resources>

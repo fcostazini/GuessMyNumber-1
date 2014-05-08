@@ -8,6 +8,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -18,16 +19,17 @@ import ar.com.gmn.android.core.Numero;
 import ar.com.gmn.android.core.Respuesta;
 import ar.com.gmn.android.util.CustomNumberPickerFactory;
 import ar.com.gmn.android.view.component.CustomNumberPicker;
+import ar.com.gmn.android.view.component.CustomNumberPicker2;
 import ar.com.gmn.android.view.component.TRRespuestaDuelo;
 
 public class DuelFragment extends Fragment {
-
+    public final static  int NUMBERPIKER_STYLE = 1;
 	private Evaluador e;
-	private CustomNumberPicker digit1;
-	private CustomNumberPicker digit2;
-	private CustomNumberPicker digit3;
-	private CustomNumberPicker digit4;
-	private TextView probar;
+	private CustomNumberPicker2 digit1;
+	private CustomNumberPicker2 digit2;
+	private CustomNumberPicker2 digit3;
+	private CustomNumberPicker2 digit4;
+	private ImageView probar;
 	private Integer turno = 0;
 	private Numero codigo;
 	private TableLayout tResultados;
@@ -59,36 +61,24 @@ public class DuelFragment extends Fragment {
 		e = new Evaluador(codigo);
 		this.type = Typeface.createFromAsset(
 				container.getContext().getAssets(), "fonts/HandWrite.ttf");
-		digit1 = CustomNumberPickerFactory.createNumberPiker(container.getContext(),CustomNumberPickerFactory.DUELO);
-		digit2 = CustomNumberPickerFactory.createNumberPiker(container.getContext(),CustomNumberPickerFactory.DUELO);
-		digit3 = CustomNumberPickerFactory.createNumberPiker(container.getContext(),CustomNumberPickerFactory.DUELO);
-		digit4 = CustomNumberPickerFactory.createNumberPiker(container.getContext(),CustomNumberPickerFactory.DUELO);
+		digit1 = (CustomNumberPicker2) this.container.findViewById(R.id.digit1);
+        digit2 = (CustomNumberPicker2) this.container.findViewById(R.id.digit2);
+        digit3 = (CustomNumberPicker2) this.container.findViewById(R.id.digit3);
+        digit4 = (CustomNumberPicker2) this.container.findViewById(R.id.digit4);
 
 		
 		this.me.setTypeface(type);
 		this.him.setTypeface(type);
-		LinearLayout numeroLayout = (LinearLayout) container
-				.findViewById(R.id.numeroLayout);
-		numeroLayout.addView(digit1);
-		numeroLayout.addView(digit2);
-		numeroLayout.addView(digit3);
-		numeroLayout.addView(digit4);
-		probar = new TextView(container.getContext());
-		probar.setText("?");
 
-		probar.setTextAppearance(container.getContext(),
-				R.style.DueloNumberPiker_Button);
-		probar.setTypeface(type);
-		probar.setGravity(Gravity.CENTER);
+		probar = (ImageView) container.findViewById(R.id.prueba);
 
-		probar.setBackgroundResource(R.drawable.border);
+
+		probar.setBackgroundResource(R.drawable.downarrow);
 		// LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(40,
-		// 120);
+        // 120);
 		probar.getBackground().setColorFilter(0x80000000,
 				PorterDuff.Mode.SRC_ATOP);
-		
-		// probar.setLayoutParams(params);
-		numeroLayout.addView(probar);
+
 
 		createTablaResultados();
 
@@ -103,7 +93,7 @@ public class DuelFragment extends Fragment {
 
 				if (n.tieneRepetidos()) {
 
-					CharSequence text = "N�meros repetidos!";
+					CharSequence text = getResources().getString(R.string.repetidos);
 					int duration = Toast.LENGTH_SHORT;
 
 					Toast toast = Toast.makeText(v.getContext(), text, duration);
@@ -117,7 +107,7 @@ public class DuelFragment extends Fragment {
 						digit2.setCorrecto();
 						digit3.setCorrecto();
 						digit4.setCorrecto();
-						probar.setText(":)");
+
 						probar.setEnabled(false);
 					} else {
 //						if (turno >= 7) {
