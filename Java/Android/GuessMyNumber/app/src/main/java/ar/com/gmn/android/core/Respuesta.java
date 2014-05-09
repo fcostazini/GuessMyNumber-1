@@ -10,6 +10,11 @@ public class Respuesta {
 		this.correctos = correctos;
 		this.regulares = regulares;
 	}
+    public Respuesta(Numero n,Integer correctos, Integer regulares) {
+        this.correctos = correctos;
+        this.regulares = regulares;
+        this.numero = n;
+    }
 	public Respuesta(){
 		
 	}

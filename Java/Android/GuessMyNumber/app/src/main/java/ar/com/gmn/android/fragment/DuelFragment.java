@@ -14,11 +14,12 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import ar.com.gmn.android.R;
+import ar.com.gmn.android.core.Duelo;
 import ar.com.gmn.android.core.Evaluador;
 import ar.com.gmn.android.core.Numero;
 import ar.com.gmn.android.core.Respuesta;
-import ar.com.gmn.android.util.CustomNumberPickerFactory;
-import ar.com.gmn.android.view.component.CustomNumberPicker;
+
+
 import ar.com.gmn.android.view.component.CustomNumberPicker2;
 import ar.com.gmn.android.view.component.TRRespuestaDuelo;
 
@@ -37,8 +38,9 @@ public class DuelFragment extends Fragment {
 	private Typeface type;
 	private TextView me;
 	private TextView him;
+    private Duelo duelo;
 
-	protected void addRespuesta(Respuesta r) {
+    protected void addRespuestaP1(Respuesta r) {
 		TableLayout tResultados = (TableLayout) container
 				.findViewById(R.id.results_me);
 		TRRespuestaDuelo trRespuesta = new TRRespuestaDuelo(container.getContext(), r,
@@ -48,11 +50,22 @@ public class DuelFragment extends Fragment {
 
 	}
 
+    protected void addRespuestaP2(Respuesta r) {
+        TableLayout tResultados = (TableLayout) container
+                .findViewById(R.id.results_him);
+        TRRespuestaDuelo trRespuesta = new TRRespuestaDuelo(container.getContext(), r,
+                R.style.ResultadoDuelo);
+        trRespuesta.setTextFont(type);
+        tResultados.addView(trRespuesta);
+
+    }
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup c,
 			Bundle savedInstanceState) {
 
 		this.container = inflater.inflate(R.layout.fragment_duel, null);
+
 		this.me = (TextView)this.container.findViewById(R.id.meDuel);
 		this.him = (TextView)this.container.findViewById(R.id.himDuel);
 		
@@ -68,6 +81,14 @@ public class DuelFragment extends Fragment {
 
 		
 		this.me.setTypeface(type);
+        this.me.setText(duelo.getP1().getNombre());
+        for(Respuesta r : duelo.getRespuestasP1()){
+            addRespuestaP1(r);
+        }
+        this.him.setText(duelo.getP2().getNombre());
+        for(Respuesta r : duelo.getRespuestasP2()){
+            addRespuestaP2(r);
+        }
 		this.him.setTypeface(type);
 
 		probar = (ImageView) container.findViewById(R.id.prueba);
@@ -101,7 +122,7 @@ public class DuelFragment extends Fragment {
 				} else {
 					turno++;
 					Respuesta r = e.evaluar(n);
-					addRespuesta(r);
+					addRespuestaP1(r);
 					if (r.resuelto()) {
 						digit1.setCorrecto();
 						digit2.setCorrecto();
@@ -141,7 +162,13 @@ public class DuelFragment extends Fragment {
 
 	}
 
-	/**
+
+
+    public void setDuelo(Duelo duelo) {
+        this.duelo = duelo;
+    }
+
+    /**
 	 * A placeholder fragment containing a simple view.
 	 */
 	public static class PlaceholderFragment extends Fragment {

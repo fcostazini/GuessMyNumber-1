@@ -89,31 +89,27 @@
         <item name="android:textSize">32dp</item>
     </style>
     <style name="duel_item_layout">
-        <item name="android:background">@drawable/chalk_frame</item>
-        <item name="android:gravity">center</item>
-        <item name="android:weightSum">5</item>
+        <item name="android:layout_gravity">center</item>
         <item name="android:layout_margin">3dp</item>
-        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_height">30dp</item>
         <item name="android:orientation">horizontal</item>
         <item name="android:layout_width">match_parent</item>
 
 
+
+
     </style>
 
-    <style name="duel_item_layout.text">
+    <style name="duel_item_layout.text" >
         <item name="android:textColor">#ffffffff</item>
-        <item name="android:textSize">30dp</item>
-        <item name="android:gravity">center</item>
+        <item name="android:textSize">15dp</item>
+        <item name="android:gravity">center_vertical|left</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">match_parent</item>
+
     </style>
 
     <style name="duel_item_layout.photo_frame">
-        <item name="android:layout_weight">4</item>
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">match_parent</item>
+
     </style>
 
 </resources>

@@ -25,7 +25,7 @@ private Typeface typeFace;
 //private ImageViewOnTouchListener touchListerner;
 
     public CustomNumberPicker2(Context context, AttributeSet attrs){
-        super(context);
+        super(context,attrs);
         initView(context);
         TypedArray a = context.obtainStyledAttributes(attrs,
                 R.styleable.CustomNumberPicker2);
@@ -157,7 +157,6 @@ private Typeface typeFace;
 		
 	}
 	public Integer getValue() {
-		// TODO Auto-generated method stub
 		return current;
 	}
 	public void setCorrecto(){

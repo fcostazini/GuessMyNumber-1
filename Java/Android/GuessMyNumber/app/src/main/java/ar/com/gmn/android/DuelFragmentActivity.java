@@ -13,6 +13,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import ar.com.gmn.android.R;
+import ar.com.gmn.android.core.DuelManager;
+import ar.com.gmn.android.core.Duelo;
 import ar.com.gmn.android.fragment.DuelFragment;
 import ar.com.gmn.android.fragment.StatusFragment;
 
@@ -37,12 +39,14 @@ public class DuelFragmentActivity extends ActionBarActivity {
 	   * The adapter definition of the fragments.
 	   */
 	  private FragmentPagerAdapter _fragmentPagerAdapter;
-	 
+	  private DuelManager duelManager;
 	  /**
 	   * The ViewPager that hosts the section contents.
 	   */
 	  private ViewPager _viewPager;
-	 
+
+    private String idDuelo;
+    private Duelo duelo;
 	  /**
 	   * List of fragments.
 	   */
@@ -51,11 +55,15 @@ public class DuelFragmentActivity extends ActionBarActivity {
 	  @Override
 	  protected void onCreate(final Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	 
+
 	    setContentView(R.layout.activity_duel_fragment);
 	    overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out);
+          idDuelo = (String) getIntent().getExtras().get(DuelManager.DUEL_ID);
+          duelo = duelManager.getInstance().getDuelo(idDuelo);
 	    // Create fragments.
-	    _fragments.add(FRAGMENT_ONE, new DuelFragment());
+          DuelFragment d = new DuelFragment();
+          d.setDuelo(duelo);
+	    _fragments.add(FRAGMENT_ONE, d);
 	    _fragments.add(FRAGMENT_TWO, new StatusFragment());
 	 
 	    // Setup the fragments, defining the number of fragments, the screens and titles.

@@ -17,8 +17,8 @@ import ar.com.gmn.android.R;
 import ar.com.gmn.android.core.Evaluador;
 import ar.com.gmn.android.core.Numero;
 import ar.com.gmn.android.core.Respuesta;
-import ar.com.gmn.android.util.CustomNumberPickerFactory;
-import ar.com.gmn.android.view.component.CustomNumberPicker;
+
+
 import ar.com.gmn.android.view.component.CustomNumberPicker2;
 import ar.com.gmn.android.view.component.TRRespuesta;
 
@@ -67,13 +67,6 @@ public class SinglePlayerFragment extends Fragment {
 		probar = (ImageView)container.findViewById(R.id.prueba);
 
 
-		probar.setBackgroundResource(R.drawable.chalk_frame);
-		 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,
-				 LayoutParams.MATCH_PARENT,4f);
-//		probar.getBackground().setColorFilter(0x80000000,
-//				PorterDuff.Mode.SRC_ATOP);
-		
-		 probar.setLayoutParams(params);
 
 
 		createTablaResultados();

@@ -31,6 +31,9 @@ public class MainActivity extends ActionBarActivity {
                 if (result == RESULT_OK){
                     String accountName = i.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
                     Toast.makeText(getApplicationContext(), accountName, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(this, MenuActivity.class);
+                    this.startActivity(intent);
+
                 }
                 break;
         }

@@ -13,13 +13,21 @@
     <string name="me">Yo</string>
     <string name="him">Amigo</string>
     <string name="title_activity_duel_fragment">Duelo</string>
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
+    <string name="title_duelos_activos">Duelos</string>
+    <string name="title_invitar">Retar a Duelo</string>
     <string name="title_section3">Section 3</string>
     <string name="title_activity_multiplayer_manager">Multiplayer</string>
     <string name="duelos_pendientes">Duelos Pendientes</string>
     <string name="duelos_activos">Duelos Activos</string>
     <string name="repetidos">Números repetidos!</string>
+
+    <string name="duelo_pendiente">Pendiente</string>
+    <string name="duelo_activo">Activo</string>
+    <string name="duelo_cancelado">Cancelado</string>
+    <string name="duelo_esperando">Esperando</string>
+    <string name="duelo_ganado">Ganaste!</string>
+    <string name="duelo_perdido">Perdiste</string>
+
 
 
 </resources>

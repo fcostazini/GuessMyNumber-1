@@ -10,7 +10,10 @@
     android:weightSum="3"
     tools:context="ar.com.gmn.android.MultiplayerManagerActivity">
 
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1" >
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
@@ -21,152 +24,39 @@
             android:layout_height="wrap_content"
             android:text="@string/duelos_activos"
             android:textColor="#ffffffff"/>
+
         <LinearLayout
             android:id="@+id/active_duels_container"
             android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
 
             android:layout_alignParentTop="true"
-            android:layout_weight="1" >
+            >
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/panel"
-                android:layout_margin="10dp">
+       </LinearLayout>
 
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="match_parent"
-                    android:id="@+id/imageView2"
-                    android:background="@drawable/uparrow"
-                    />
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="match_parent"
-                    android:text="Nombre de Amigo"
-                    android:gravity="center_vertical"
-                    android:textColor="@android:color/white"
-                    android:layout_weight="1"/>
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="match_parent"
-                    android:text="Tu turno"
 
-                    android:gravity="center"
-                    android:textColor="#ff00ff00"
-                    android:layout_weight="2"/>
 
-            </LinearLayout>
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="50dp"
-
-                android:background="@drawable/panel"
-                android:layout_margin="10dp">
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="match_parent"
-                    android:id="@+id/imageView"
-                    android:background="@drawable/uparrow"
-                    />
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="match_parent"
-                    android:text="Nombre de Amigo"
-                    android:gravity="center_vertical"
-                    android:textColor="@android:color/white"
-                    android:layout_weight="1"/>
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="match_parent"
-                    android:text="Esperando..."
-
-                    android:gravity="center"
-                    android:textColor="#ffff4500"
-                    android:layout_weight="2"/>
-
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/pending_duels_container"
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_alignBottom="@id/active_duels_container"
-            android:layout_weight="1">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/duelos_pendientes"
             android:textColor="#ffffffff"/>
+
             <LinearLayout
-                android:orientation="horizontal"
+                android:id="@+id/pending_duels_container"
+                android:orientation="vertical"
                 android:layout_width="fill_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/panel"
-                android:layout_margin="10dp">
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="match_parent"
-                    android:id="@+id/imageView3"
-                    android:background="@drawable/uparrow"
-                    />
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="match_parent"
-                    android:text="Nombre de Amigo"
-                    android:gravity="center_vertical"
-                    android:textColor="@android:color/white"
-                    android:layout_weight="1"/>
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="match_parent"
-                    android:text="Pendiente"
-
-                    android:gravity="center"
-                    android:textColor="#ffffff00"
-                    android:layout_weight="2"/>
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:layout_alignBottom="@id/active_duels_container"
+                >
 
             </LinearLayout>
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/panel"
-                android:layout_margin="10dp">
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="match_parent"
-                    android:id="@+id/imageView3"
-                    android:background="@drawable/uparrow"
-                    />
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="match_parent"
-                    android:text="Nombre de Amigo"
-                    android:gravity="center_vertical"
-                    android:textColor="@android:color/white"
-                    android:layout_weight="1"/>
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="match_parent"
-                    android:text="Rechazado"
-
-                    android:gravity="center"
-                    android:textColor="#ffff0900"
-                    android:layout_weight="2"/>
-
-            </LinearLayout>
-        </LinearLayout>
 
 
     </LinearLayout>
+    </ScrollView>
 </RelativeLayout>

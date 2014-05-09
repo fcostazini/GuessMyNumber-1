@@ -5,6 +5,7 @@ import java.util.Vector;
 
 import android.content.Context;
 import ar.com.gmn.android.DuelFragmentActivity;
+import ar.com.gmn.android.MultiplayerManagerActivity;
 import ar.com.gmn.android.SinglePlayerFragmentActivity;
 import ar.com.gmn.android.core.IMenuOptions;
 
@@ -20,10 +21,10 @@ private List<MenuOption> options;
 		this.options = new Vector<MenuOption>();
 		MenuOption m = new MenuOption(context, "Single PLayer", SinglePlayerFragmentActivity.class, style);
 		this.options.add(m);
-		m = new MenuOption(context, "Duelo", DuelFragmentActivity.class,style);
+		m = new MenuOption(context, "Duelo", MultiplayerManagerActivity.class,style);
 		this.options.add(m);
-		m = new MenuOption(context, "Config", DuelFragmentActivity.class,style);
-		this.options.add(m);
+//		m = new MenuOption(context, "Config", DuelFragmentActivity.class,style);
+//		this.options.add(m);
 		
 		
 	}

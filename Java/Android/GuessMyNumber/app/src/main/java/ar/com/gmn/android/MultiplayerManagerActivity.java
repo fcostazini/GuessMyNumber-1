@@ -14,6 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import ar.com.gmn.android.fragment.ActiveDuelsFragment;
+
 
 public class MultiplayerManagerActivity extends ActionBarActivity {
 
@@ -31,6 +33,15 @@ public class MultiplayerManagerActivity extends ActionBarActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     ViewPager mViewPager;
+    /**
+     * Identifier for the first fragment.
+     */
+    public static final int ACTIVE_DUELS = 0;
+
+    /**
+     * Identifier for the second fragment.
+     */
+    public static final int INVITE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,15 +94,18 @@ public class MultiplayerManagerActivity extends ActionBarActivity {
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            switch (position){
+                case ACTIVE_DUELS:
+                    return new ActiveDuelsFragment();
+                default:
+                    return PlaceholderFragment.newInstance(position + 1);
+            }
+
         }
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            return 2;
         }
 
         @Override
@@ -99,9 +113,9 @@ public class MultiplayerManagerActivity extends ActionBarActivity {
             Locale l = Locale.getDefault();
             switch (position) {
                 case 0:
-                    return getString(R.string.title_section1).toUpperCase(l);
+                    return getString(R.string.title_duelos_activos);
                 case 1:
-                    return getString(R.string.title_section2).toUpperCase(l);
+                    return getString(R.string.title_invitar);
                 case 2:
                     return getString(R.string.title_section3).toUpperCase(l);
             }
