@@ -128,9 +128,9 @@ private List<TextView> textos;
 	}
 
     public void setNumero(Numero n) {
-        this.digit1.setText(n.get(1));
-        this.digit2.setText(n.get(2));
-        this.digit3.setText(n.get(3));
-        this.digit4.setText(n.get(4));
+        this.digit1.setText(String.valueOf(n.get(1)));
+        this.digit2.setText(String.valueOf(n.get(2)));
+        this.digit3.setText(String.valueOf(n.get(3)));
+        this.digit4.setText(String.valueOf(n.get(4)));
     }
 }
