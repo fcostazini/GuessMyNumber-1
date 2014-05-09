@@ -1,10 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="CustomNumberPicker2">
-        <attr name="typeFace" format="string" />
-        <attr name="styleId" format="integer" />
+    <attr name="typeFace" format="string" />
+    <attr name="styleId" format="integer" />
 
+    <declare-styleable name="CustomNumberPicker2">
+        <attr name="typeFace" />
+        <attr name="styleId" />
     </declare-styleable>
 
+    <declare-styleable name="NumeroView">
+        <attr name="typeFace" />
+        <attr name="styleId" />
+    </declare-styleable>
+
+    <declare-styleable name="TRRespuesta">
+        <attr name="typeFace" />
+        <attr name="styleId" />
+    </declare-styleable>
+
+    <declare-styleable name="TRRespuestaHead">
+        <attr name="typeFace" />
+        <attr name="styleId" />
+    </declare-styleable>
 
 </resources>

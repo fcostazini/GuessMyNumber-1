@@ -33,6 +33,7 @@
     </style>
 
     <style name="ResultadoDuelo">
+        <item name="styleId">@integer/style_duelo</item>
         <item name="android:textColor">#ff062D89</item>
         <item name="android:textSize">28dp</item>
         <item name="android:textStyle">bold</item>
@@ -70,6 +71,7 @@
     </style>
 
     <style name="ResultadoSinglePLayer">
+        <item name="styleId">@integer/style_sp</item>
         <item name="android:textColor">#ffffffff</item>
         <item name="android:textSize">30dp</item>
         <item name="android:gravity">center</item>

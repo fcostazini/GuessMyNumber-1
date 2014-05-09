@@ -4,30 +4,27 @@ import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import ar.com.gmn.android.R;
 import ar.com.gmn.android.core.Duelo;
 import ar.com.gmn.android.core.Evaluador;
 import ar.com.gmn.android.core.Numero;
 import ar.com.gmn.android.core.Respuesta;
-
-
 import ar.com.gmn.android.view.component.CustomNumberPicker2;
-import ar.com.gmn.android.view.component.TRRespuestaDuelo;
+import ar.com.gmn.android.view.component.TRRespuestaSP;
 
 public class DuelFragment extends Fragment {
-    public final static  int NUMBERPIKER_STYLE = 1;
-	private Evaluador e;
-	private CustomNumberPicker2 digit1;
-	private CustomNumberPicker2 digit2;
+    public final static int STYLE = 1;
+    private Evaluador e;
+    private CustomNumberPicker2 digit1;
+    private CustomNumberPicker2 digit2;
 	private CustomNumberPicker2 digit3;
 	private CustomNumberPicker2 digit4;
 	private ImageView probar;
@@ -43,18 +40,16 @@ public class DuelFragment extends Fragment {
     protected void addRespuestaP1(Respuesta r) {
 		TableLayout tResultados = (TableLayout) container
 				.findViewById(R.id.results_me);
-		TRRespuestaDuelo trRespuesta = new TRRespuestaDuelo(container.getContext(), r,
-				R.style.ResultadoDuelo);
-		trRespuesta.setTextFont(type);
-		tResultados.addView(trRespuesta);
+        TRRespuestaSP trRespuesta = new TRRespuestaSP(container.getContext(), r);
+        trRespuesta.setTextFont(type);
+        tResultados.addView(trRespuesta);
 
 	}
 
     protected void addRespuestaP2(Respuesta r) {
         TableLayout tResultados = (TableLayout) container
                 .findViewById(R.id.results_him);
-        TRRespuestaDuelo trRespuesta = new TRRespuestaDuelo(container.getContext(), r,
-                R.style.ResultadoDuelo);
+        TRRespuestaSP trRespuesta = new TRRespuestaSP(container.getContext(), r);
         trRespuesta.setTextFont(type);
         tResultados.addView(trRespuesta);
 

@@ -38,7 +38,7 @@ private Typeface typeFace;
 
                   case R.styleable.CustomNumberPicker2_styleId:
                         switch (a.getInteger(attr,-1)){
-                            case DuelFragment.NUMBERPIKER_STYLE:
+                            case DuelFragment.STYLE:
                                 setNumberStyle(R.style.DueloNumberPiker_Number);
                                 setButtonStyle(R.style.DueloNumberPiker_Button);
                                 setNumberFrame(R.drawable.border);
@@ -47,7 +47,7 @@ private Typeface typeFace;
                                 this.setButtonTypeFace(typeFace);
                                 this.setNumberTypeFace(typeFace);
                                 break;
-                            case SinglePlayerFragment.NUMBERPIKER_STYLE:
+                            case SinglePlayerFragment.STYLE:
                                 setNumberStyle(R.style.SP_NumberPiker_Number);
                                 setButtonStyle(R.style.SP_NumberPiker_Button);
                                 setNumberFrame(R.drawable.chalk_frame);
@@ -65,7 +65,7 @@ private Typeface typeFace;
 
             a.recycle();
         }
-        initView(context);
+
     }
 
 
