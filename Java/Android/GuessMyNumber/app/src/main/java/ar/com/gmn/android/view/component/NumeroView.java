@@ -17,18 +17,18 @@ import ar.com.gmn.android.fragment.DuelFragment;
 import ar.com.gmn.android.fragment.SinglePlayerFragment;
 
 public class NumeroView extends LinearLayout {
-private Numero numero;
-private Typeface type;
-private TextView digit1;
-private TextView digit2;
-private TextView digit3;
-private TextView digit4;
-private List<TextView> textos;
+    private Numero numero;
+    private Typeface type;
+    private TextView digit1;
+    private TextView digit2;
+    private TextView digit3;
+    private TextView digit4;
+    private List<TextView> textos;
 
     public NumeroView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initView(context);
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CustomNumberPicker2);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.NumeroView);
 
         if (!this.isInEditMode()) {
             for (int i = 0; i < a.getIndexCount(); ++i) {
@@ -62,13 +62,13 @@ private List<TextView> textos;
         }
     }
 
-	public NumeroView(Context context, Numero n) {
-		super(context);
+    public NumeroView(Context context, Numero n) {
+        super(context);
 
         initView(context);
         setNumero(n);
 
-	}
+    }
 
     private void initView(Context context) {
         final LayoutInflater inflater = (LayoutInflater)
@@ -97,8 +97,8 @@ private List<TextView> textos;
 
     public void setTypeface(Typeface type2) {
         for (TextView text : textos) {
-			text.setTypeface(type2);
-		}
+            text.setTypeface(type2);
+        }
 
 
     }
@@ -106,26 +106,26 @@ private List<TextView> textos;
     public void setTextSize(int size) {
         for (TextView text : textos) {
             text.setTextSize(size);
-		}
-		
-	}
+        }
+
+    }
 
 
-	public void setTextColor(int color) {
-		for (TextView text : textos) {
-			text.setTextColor(color);
-		}
-		
-		
-	}
+    public void setTextColor(int color) {
+        for (TextView text : textos) {
+            text.setTextColor(color);
+        }
 
 
-	public void setTextAppearance(Context context, int style) {
-		for (TextView text : textos) {
-			text.setTextAppearance(context, style);
-		}
-		
-	}
+    }
+
+
+    public void setTextAppearance(Context context, int style) {
+        for (TextView text : textos) {
+            text.setTextAppearance(context, style);
+        }
+
+    }
 
     public void setNumero(Numero n) {
         this.digit1.setText(String.valueOf(n.get(1)));

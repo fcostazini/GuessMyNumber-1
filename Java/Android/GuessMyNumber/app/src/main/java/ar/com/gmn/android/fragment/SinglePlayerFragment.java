@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import ar.com.gmn.android.R;
@@ -35,6 +34,8 @@ public class SinglePlayerFragment extends Fragment {
     protected void addRespuesta(Respuesta r) {
         TRRespuestaSP trRespuesta = new TRRespuestaSP(this.container.getContext(), r);
         trRespuesta.setTurno(turno);
+        trRespuesta.setTextAppearence(R.style.ResultadoSinglePLayer);
+        trRespuesta.setTextFont(type);
 
         tResultados.addView(trRespuesta);
 
@@ -45,7 +46,7 @@ public class SinglePlayerFragment extends Fragment {
                              Bundle savedInstanceState) {
         this.container = inflater.inflate(R.layout.single_player_fragment, null);
         // Remove title bar
-
+        tResultados = (LinearLayout) this.container.findViewById(R.id.results);
         codigo = Numero.getRandom(4);
         e = new Evaluador(codigo);
         this.type = Typeface.createFromAsset(this.container.getContext()
@@ -57,10 +58,6 @@ public class SinglePlayerFragment extends Fragment {
 
 
         probar = (ImageView) container.findViewById(R.id.prueba);
-
-
-        createTablaResultados();
-
         probar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
@@ -105,16 +102,6 @@ public class SinglePlayerFragment extends Fragment {
 
         });
         return this.container;
-    }
-
-    public void createTablaResultados() {
-        Typeface type = Typeface.createFromAsset(this.container.getContext().getAssets(),
-                "fonts/EraserDust.ttf");
-        tResultados = (LinearLayout) this.container.findViewById(R.id.results);
-        ((TextView) this.container.findViewById(R.id.textBien)).setTypeface(type);
-        ((TextView) this.container.findViewById(R.id.textNumero)).setTypeface(type);
-        ((TextView) this.container.findViewById(R.id.textTurno)).setTypeface(type);
-        ((TextView) this.container.findViewById(R.id.textRegular)).setTypeface(type);
     }
 
 

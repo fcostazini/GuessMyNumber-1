@@ -24,6 +24,13 @@ public class TRRespuestaSP extends TRRespuesta {
         turno.setTypeface(type);
     }
 
+    @Override
+    public void setTextAppearence(int style) {
+        super.setTextAppearence(style);
+        turno.setTextAppearance(this.getContext(), style);
+
+    }
+
 
     public void setTurno(int turno) {
         this.turno.setText(String.valueOf(turno));

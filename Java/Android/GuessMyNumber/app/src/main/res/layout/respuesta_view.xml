@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@color/common_signin_btn_dark_text_disabled">
+    android:layout_marginBottom="5dp"
+    android:layout_marginTop="5dp">
 
     <ar.com.gmn.android.view.component.NumeroView
 

@@ -19,7 +19,8 @@
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
-            android:layout_weight="2"
+            android:layout_weight="3"
+
                 android:background="@android:color/transparent"
                 android:orientation="horizontal">
 
@@ -85,21 +86,30 @@
 
             </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <ar.com.gmn.android.view.component.TRRespuestaSPHead
+
+            <ar.com.gmn.android.view.component.TRRespuestaSPHead
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:typeFace="EraserDust.otf">
+                android:layout_marginTop="10dp"
+                app:styleId="@integer/style_sp">
 
-        </ar.com.gmn.android.view.component.TRRespuestaSPHead>
+            </ar.com.gmn.android.view.component.TRRespuestaSPHead>
 
 
         <ScrollView
                 android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:paddingTop="5dp">
 
-            <LinearLayout
+        <LinearLayout
                 android:id="@+id/results"
                 android:layout_width="match_parent"
                     android:layout_height="fill_parent"
@@ -110,7 +120,7 @@
 
             </LinearLayout>
         </ScrollView>
-
+        </LinearLayout>
     </LinearLayout>
 
 </FrameLayout>

@@ -3,37 +3,42 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
     android:orientation="horizontal">
 
     <TextView
         android:id="@+id/digit1"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:gravity="center"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
         android:text="1" />
 
     <TextView
         android:id="@+id/digit2"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:gravity="center"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
         android:text="2" />
 
     <TextView
         android:id="@+id/digit3"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:gravity="center"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
         android:text="3" />
 
     <TextView
         android:id="@+id/digit4"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:gravity="center"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
         android:text="4" />
 </LinearLayout>

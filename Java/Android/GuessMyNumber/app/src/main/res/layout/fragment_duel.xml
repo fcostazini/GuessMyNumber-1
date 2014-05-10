@@ -1,134 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/notepad"
     tools:context="ar.com.gmn.android.DuelActivity"
-    tools:ignore="MergeRootFrame" >
+    tools:ignore="MergeRootFrame">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
+            android:layout_weight="3"
             android:background="@android:color/transparent"
-            android:orientation="horizontal"
-            android:layout_weight="3">
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:id="@+id/numeroLayout"
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:padding="1dp"
-                android:layout_weight="1">
+                android:padding="1dp">
+
                 <ar.com.gmn.android.view.component.CustomNumberPicker2
+                    android:id="@+id/digit1"
                     style="@style/DueloNumberPiker"
                     android:layout_width="fill_parent"
-                    android:layout_weight="1"
-                    android:layout_marginBottom="2dp"
                     android:layout_height="fill_parent"
+                    android:layout_marginBottom="2dp"
 
-                    android:id="@+id/digit1">
+                    android:layout_weight="1">
 
                 </ar.com.gmn.android.view.component.CustomNumberPicker2>
+
                 <ar.com.gmn.android.view.component.CustomNumberPicker2
+                    android:id="@+id/digit2"
                     style="@style/DueloNumberPiker"
                     android:layout_width="fill_parent"
-                    android:layout_weight="1"
-                    android:layout_marginBottom="2dp"
                     android:layout_height="fill_parent"
+                    android:layout_marginBottom="2dp"
 
-                    android:id="@+id/digit2">
+                    android:layout_weight="1">
 
                 </ar.com.gmn.android.view.component.CustomNumberPicker2>
+
                 <ar.com.gmn.android.view.component.CustomNumberPicker2
+                    android:id="@+id/digit3"
                     style="@style/DueloNumberPiker"
                     android:layout_width="fill_parent"
-                    android:layout_weight="1"
-                    android:layout_marginBottom="2dp"
                     android:layout_height="fill_parent"
+                    android:layout_marginBottom="2dp"
 
-                    android:id="@+id/digit3">
+                    android:layout_weight="1">
 
                 </ar.com.gmn.android.view.component.CustomNumberPicker2>
+
                 <ar.com.gmn.android.view.component.CustomNumberPicker2
+                    android:id="@+id/digit4"
                     style="@style/DueloNumberPiker"
                     android:layout_width="fill_parent"
-                    android:layout_weight="1"
-                    android:layout_marginBottom="2dp"
                     android:layout_height="fill_parent"
+                    android:layout_marginBottom="2dp"
 
-                    android:id="@+id/digit4">
+                    android:layout_weight="1">
 
                 </ar.com.gmn.android.view.component.CustomNumberPicker2>
             </LinearLayout>
+
             <ImageView
                 android:id="@+id/prueba"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@drawable/uparrow"
-                android:layout_weight="4"/>
+                android:layout_weight="4"
+                android:background="@drawable/uparrow" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:orientation="horizontal"
-            android:layout_weight="1">
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
-            <TableLayout
-                android:id="@+id/results_me"
+            <LinearLayout
+
                 android:layout_width="fill_parent"
-                android:layout_height="379dp"
-                android:layout_gravity="center_horizontal"
+                android:layout_height="fill_parent"
                 android:layout_weight="1"
+                android:orientation="vertical"
                 android:paddingBottom="15dp"
-                android:paddingTop="10dp" >
+                android:paddingTop="10dp">
 
                 <TextView
-                    android:id ="@+id/meDuel"
+                    android:id="@+id/meDuel"
                     style="@style/ResultadoDuelo"
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="@string/me" />
 
-                <TableRow
-                    android:id="@+id/resultHeaderMe"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-
-                    <TextView
-                        android:id="@+id/textNumeroMe"
-                        style="@style/ResultadoDuelo"
-                        android:layout_width="80dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/numero" />
-
-                    <TextView
-                        android:id="@+id/textBienMe"
-                        style="@style/ResultadoDuelo"
-                        android:layout_width="20dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/bien_inicial" />
-
-                    <TextView
-                        android:id="@+id/textRegularMe"
-                        style="@style/ResultadoDuelo"
-                        android:layout_width="20dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/regular_inicial" />
-                </TableRow>
+                <ar.com.gmn.android.view.component.TRRespuestaHead
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    custom:styleId="@integer/style_duelo"></ar.com.gmn.android.view.component.TRRespuestaHead>
 
                 <View
                     android:layout_width="match_parent"
@@ -136,7 +121,18 @@
                     android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/borde_horizontal" />
-            </TableLayout>
+
+                <ScrollView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <LinearLayout
+                        android:id="@+id/results_me"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:orientation="vertical" />
+                </ScrollView>
+            </LinearLayout>
 
             <View
                 android:layout_width="3dp"
@@ -145,48 +141,26 @@
                 android:layout_marginRight="5dp"
                 android:background="@drawable/borde_vertical" />
 
-            <TableLayout
-                android:id="@+id/results_him"
+            <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="379dp"
-                android:layout_gravity="center_horizontal"
+                android:layout_height="fill_parent"
                 android:layout_weight="1"
+                android:orientation="vertical"
                 android:paddingBottom="15dp"
-                android:paddingTop="10dp" >
+                android:paddingTop="10dp">
 
                 <TextView
-                    android:id ="@+id/himDuel"
+                    android:id="@+id/himDuel"
                     style="@style/ResultadoDuelo"
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="@string/him" />
 
-                <TableRow
-                    android:id="@+id/resultHeaderHim"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-
-                    <TextView
-                        android:id="@+id/textNumeroHim"
-                        style="@style/ResultadoDuelo"
-                        android:layout_width="80dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/numero" />
-
-                    <TextView
-                        android:id="@+id/textBienHim"
-                        style="@style/ResultadoDuelo"
-                        android:layout_width="20dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/bien_inicial" />
-
-                    <TextView
-                        android:id="@+id/textRegularHim"
-                        style="@style/ResultadoDuelo"
-                        android:layout_width="20dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/regular_inicial" />
-                </TableRow>
+                <ar.com.gmn.android.view.component.TRRespuestaHead
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    custom:styleId="@integer/style_duelo"></ar.com.gmn.android.view.component.TRRespuestaHead>
 
                 <View
                     android:layout_width="match_parent"
@@ -194,7 +168,18 @@
                     android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/borde_horizontal" />
-            </TableLayout>
+
+                <ScrollView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <LinearLayout
+                        android:id="@+id/results_him"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:orientation="vertical" />
+                </ScrollView>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

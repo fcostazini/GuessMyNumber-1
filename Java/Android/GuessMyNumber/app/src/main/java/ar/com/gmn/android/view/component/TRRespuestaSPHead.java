@@ -1,6 +1,7 @@
 package ar.com.gmn.android.view.component;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -13,15 +14,30 @@ public class TRRespuestaSPHead extends TRRespuestaHead {
 
     private TextView turno;
 
-    public TRRespuestaSPHead(Context context, AttributeSet attr) {
-        super(context, attr);
-        turno = (TextView) findViewById(R.id.textTurno);
+
+    public TRRespuestaSPHead(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public TRRespuestaSPHead(Context context) {
+        super(context);
+    }
+
+    @Override
+    protected TypedArray getStyleable(Context context, AttributeSet attrs) {
+        return context.obtainStyledAttributes(attrs, R.styleable.TRRespuestaHead);
     }
 
     @Override
     public void setTextFont(Typeface type) {
         super.setTextFont(type);
         turno.setTypeface(type);
+    }
+
+    @Override
+    protected void setTextAppearance(Context context, int style) {
+        super.setTextAppearance(context, style);
+        this.turno.setTextAppearance(context, style);
     }
 
     @Override
