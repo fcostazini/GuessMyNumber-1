@@ -4,6 +4,8 @@ import java.util.List;
 
 /**
  * Created by Fcostazini on 09/05/2014.
+ *
+ * akjshdkjashdkjashd
  */
 public class Duelo {
     private final String dueloId;

@@ -14,16 +14,16 @@ import ar.com.gmn.android.R;
 import ar.com.gmn.android.core.Evaluador;
 import ar.com.gmn.android.core.Numero;
 import ar.com.gmn.android.core.Respuesta;
-import ar.com.gmn.android.view.component.CustomNumberPicker2;
+import ar.com.gmn.android.view.component.CustomNumberPicker;
 import ar.com.gmn.android.view.component.TRRespuestaSP;
 
 public class SinglePlayerFragment extends Fragment {
     public final static int STYLE = 2;
     private Evaluador e;
-    private CustomNumberPicker2 digit1;
-    private CustomNumberPicker2 digit2;
-    private CustomNumberPicker2 digit3;
-    private CustomNumberPicker2 digit4;
+    private CustomNumberPicker digit1;
+    private CustomNumberPicker digit2;
+    private CustomNumberPicker digit3;
+    private CustomNumberPicker digit4;
     private ImageView probar;
     private Integer turno = 0;
     private Numero codigo;
@@ -51,10 +51,10 @@ public class SinglePlayerFragment extends Fragment {
         e = new Evaluador(codigo);
         this.type = Typeface.createFromAsset(this.container.getContext()
                 .getAssets(), "fonts/EraserDust.ttf");
-        digit1 = (CustomNumberPicker2) container.findViewById(R.id.digit1);
-        digit2 = (CustomNumberPicker2) container.findViewById(R.id.digit2);
-        digit3 = (CustomNumberPicker2) container.findViewById(R.id.digit3);
-        digit4 = (CustomNumberPicker2) container.findViewById(R.id.digit4);
+        digit1 = (CustomNumberPicker) container.findViewById(R.id.digit1);
+        digit2 = (CustomNumberPicker) container.findViewById(R.id.digit2);
+        digit3 = (CustomNumberPicker) container.findViewById(R.id.digit3);
+        digit4 = (CustomNumberPicker) container.findViewById(R.id.digit4);
 
 
         probar = (ImageView) container.findViewById(R.id.prueba);

@@ -1,9 +1,13 @@
 package ar.com.gmn.android.fragment;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,27 +16,31 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.InputStream;
+
 import ar.com.gmn.android.R;
 import ar.com.gmn.android.core.Duelo;
 import ar.com.gmn.android.core.Evaluador;
+import ar.com.gmn.android.core.GameApplication;
 import ar.com.gmn.android.core.Numero;
+import ar.com.gmn.android.core.Player;
 import ar.com.gmn.android.core.Respuesta;
-import ar.com.gmn.android.view.component.CustomNumberPicker2;
+import ar.com.gmn.android.view.component.CustomNumberPicker;
 import ar.com.gmn.android.view.component.TRRespuesta;
 
 public class DuelFragment extends Fragment {
     public final static int STYLE = 1;
     private Evaluador e;
-    private CustomNumberPicker2 digit1;
-    private CustomNumberPicker2 digit2;
-    private CustomNumberPicker2 digit3;
-    private CustomNumberPicker2 digit4;
+    private CustomNumberPicker digit1;
+    private CustomNumberPicker digit2;
+    private CustomNumberPicker digit3;
+    private CustomNumberPicker digit4;
     private ImageView probar;
     private Integer turno = 0;
     private Numero codigo;
     private View container;
     private Typeface type;
-    private TextView me;
+    private ImageView me;
     private TextView him;
     private Duelo duelo;
 
@@ -58,25 +66,28 @@ public class DuelFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup c,
                              Bundle savedInstanceState) {
+        Player user;
+        user = ((GameApplication) getActivity().getApplication()).getUser();
 
         this.container = inflater.inflate(R.layout.fragment_duel, null);
 
-        this.me = (TextView) this.container.findViewById(R.id.meDuel);
+        this.me = (ImageView) this.container.findViewById(R.id.meDuel);
+        new DownloadImageTask(this.me).execute(user.getFoto());
+
+
         this.him = (TextView) this.container.findViewById(R.id.himDuel);
 
-        this.me.setTypeface(type);
+
         codigo = Numero.getRandom(4);
         e = new Evaluador(codigo);
         this.type = Typeface.createFromAsset(
                 container.getContext().getAssets(), "fonts/HandWrite.ttf");
-        digit1 = (CustomNumberPicker2) this.container.findViewById(R.id.digit1);
-        digit2 = (CustomNumberPicker2) this.container.findViewById(R.id.digit2);
-        digit3 = (CustomNumberPicker2) this.container.findViewById(R.id.digit3);
-        digit4 = (CustomNumberPicker2) this.container.findViewById(R.id.digit4);
+        digit1 = (CustomNumberPicker) this.container.findViewById(R.id.digit1);
+        digit2 = (CustomNumberPicker) this.container.findViewById(R.id.digit2);
+        digit3 = (CustomNumberPicker) this.container.findViewById(R.id.digit3);
+        digit4 = (CustomNumberPicker) this.container.findViewById(R.id.digit4);
 
 
-        this.me.setTypeface(type);
-        this.me.setText(duelo.getP1().getNombre());
         for (Respuesta r : duelo.getRespuestasP1()) {
             addRespuestaP1(r);
         }
@@ -161,6 +172,33 @@ public class DuelFragment extends Fragment {
                     false);
             return rootView;
         }
+    }
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
+
+
     }
 
 }

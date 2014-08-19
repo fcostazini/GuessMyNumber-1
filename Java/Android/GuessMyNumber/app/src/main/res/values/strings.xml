@@ -20,6 +20,7 @@
     <string name="duelos_pendientes">Duelos Pendientes</string>
     <string name="duelos_activos">Duelos Activos</string>
     <string name="repetidos">Números repetidos!</string>
+    <string name="client_url">ws://ec2-54-207-14-192.sa-east-1.compute.amazonaws.com/guessmynumber/play?userName=</string>
 
     <string name="duelo_pendiente">Pendiente</string>
     <string name="duelo_activo">Activo</string>

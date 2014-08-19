@@ -3,8 +3,8 @@
     <attr name="typeFace" format="string" />
     <attr name="styleId" format="integer" />
 
-    <declare-styleable name="CustomNumberPicker2">
-        <attr name="typeFace" />
+    <declare-styleable name="CustomNumberPicker">
+    <attr name="typeFace" />
         <attr name="styleId" />
     </declare-styleable>
 

@@ -15,8 +15,8 @@ import ar.com.gmn.android.R;
 import ar.com.gmn.android.fragment.DuelFragment;
 import ar.com.gmn.android.fragment.SinglePlayerFragment;
 
-public class CustomNumberPicker2 extends LinearLayout {
-private TextView upArrow;
+public class CustomNumberPicker extends LinearLayout {
+    private TextView upArrow;
 private TextView downArrow;
 private TextView numero;
 private Integer current;
@@ -24,11 +24,11 @@ private Typeface typeFace;
 
 //private ImageViewOnTouchListener touchListerner;
 
-    public CustomNumberPicker2(Context context, AttributeSet attrs){
+    public CustomNumberPicker(Context context, AttributeSet attrs) {
         super(context,attrs);
         initView(context);
         TypedArray a = context.obtainStyledAttributes(attrs,
-                R.styleable.CustomNumberPicker2);
+                R.styleable.CustomNumberPicker);
 
         if(!this.isInEditMode()) {
             for (int i = 0; i < a.getIndexCount(); ++i) {
@@ -69,8 +69,8 @@ private Typeface typeFace;
     }
 
 
-	public CustomNumberPicker2(Context context) {
-		super(context);
+    public CustomNumberPicker(Context context) {
+        super(context);
         initView(context);
 		/*createUpButton(context);
 		createDownButton(context);

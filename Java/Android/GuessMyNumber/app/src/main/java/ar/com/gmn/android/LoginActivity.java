@@ -17,6 +17,9 @@ import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 import com.google.android.gms.common.AccountPicker;
 
+import ar.com.gmn.android.core.GameApplication;
+import ar.com.gmn.android.core.Player;
+
 
 public class LoginActivity extends ActionBarActivity {
 
@@ -52,13 +55,20 @@ public class LoginActivity extends ActionBarActivity {
 
             @Override
             public void onUserInfoFetched(GraphUser user) {
-                LoginActivity.this.user = user;
+                if (user != null) {
+                    Player p = new Player(user.getName(), user.getId(), getFacebookPictureURL(user.getId()));
+                    ((GameApplication) LoginActivity.this.getApplication()).setUser(p);
+                }
 
             }
         });
         button.setBackgroundResource(R.drawable.facebook_icon_chalk);
         button.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
 
+    }
+
+    private String getFacebookPictureURL(String id) {
+        return "https://graph.facebook.com/" + id + "/picture";
     }
 
     private void onSessionStateChange(Session session, SessionState state, Exception exception) {
